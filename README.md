@@ -1,69 +1,60 @@
 # VidhiSetu
 
-**Multilingual AI-powered legal assistance platform for India.**
+**Multilingual AI-assisted legal information for India.**
 
-VidhiSetu is an Android-focused legal assistance project intended to make legal information more accessible to citizens, law students, and legal professionals.
+VidhiSetu is an Android application project intended to make legal information easier to access for citizens, law students, and legal professionals.
 
 ## Repository status
 
-This repository now includes the Kotlin source files supplied for the Android application and an initial Flask backend snapshot. It is **not yet a complete, buildable Android Studio project**: the Android manifest, XML layouts, drawable/mipmap assets, values/resources, and app-level Gradle configuration still need to be added. AI-agent and full RAG implementations also remain to be incorporated when their source code is available.
+The repository includes the Android Kotlin source, Android manifest, XML layouts, drawable resources, app-level Gradle configuration, and an initial Flask backend snapshot. The Android build configuration is being validated by a GitHub Actions workflow; the APK must not be considered build-verified until that workflow passes.
 
-## Current structure
+## Project structure
 
 ```text
 VidhiSetu/
 ├── android-app/
-│   └── app/src/main/java/com/example/vidhisetu/
-│       └── [Android Kotlin source files]
+│   ├── app/
+│   │   ├── src/main/AndroidManifest.xml
+│   │   ├── src/main/java/com/example/vidhisetu/
+│   │   └── src/main/res/{drawable,layout,values}/
+│   ├── gradle/libs.versions.toml
+│   ├── build.gradle.kts
+│   ├── settings.gradle.kts
+│   └── gradle.properties
 ├── backend/
 │   ├── app.py
 │   ├── legal_news.py
 │   ├── requirements.txt
 │   └── README.md
-├── .github/workflows/backend-check.yml
-├── .gitignore
-└── README.md
+└── .github/workflows/
+    ├── backend-check.yml
+    └── android-build.yml
 ```
 
-## Android source included
+## Build the Android app
 
-Kotlin source files supplied so far include the main activity, student and lawyer screens, case and document-management screens, legal information/news screens, mock-trial and practice screens, speech support, and the Flask AI question-planner client.
+Open the **android-app** directory in Android Studio (not the repository root). Install Android SDK Platform 35 if prompted, then allow Gradle sync to finish. The CI workflow builds the debug APK using Gradle 8.11.1 and JDK 17 and publishes it as a downloadable workflow artifact if the build succeeds.
 
-The source uses the package `com.example.vidhisetu` and several activities use View Binding. To build the Android application, the matching XML layout/resource files and module configuration must also be committed.
+The standard Gradle wrapper launch scripts are present. If Android Studio reports a missing wrapper JAR, use Android Studio's Gradle distribution setting or report the error so the missing wrapper component can be restored.
 
 ## Backend
 
 The initial Flask backend provides:
 
 - `GET /` — service status and supported language codes.
-- `GET /api/health` — checks API and Ollama availability.
-- `POST /api/civilian/question` — asks one legal-intake follow-up question at a time, with Hindi (`hi`) or Telugu (`te`) selected response-language instructions and a basic script check.
-- `GET /api/legal-news` — aggregates updates from the PIB RSS feed and the Supreme Court of India website.
+- `GET /api/health` — API and Ollama availability check.
+- `POST /api/civilian/question` — legal-intake follow-up questions with Hindi (`hi`) or Telugu (`te`) response-language instructions and a basic script check.
+- `GET /api/legal-news` — a news feed based on PIB RSS and Supreme Court of India updates.
 
-See [backend/README.md](backend/README.md) for setup, environment variables, API examples, and known limitations.
+See [backend/README.md](backend/README.md) for setup and limitations. A hosted Flask service cannot reach Ollama running only on a developer's laptop; the deployed backend needs an AI service reachable from its hosting environment.
 
-**Deployment note:** a hosted Flask service does not automatically have access to Ollama running on a developer's laptop. Configure an Ollama service reachable from the deployment or another supported AI provider before expecting hosted AI generation to work. The language instruction and script check are not a guarantee of translation accuracy and currently apply only to the civilian intake endpoint.
+## Not yet complete or verified
 
-## Planned / not yet included
+- A successful Android build and device/emulator test are still required.
+- The AI-agent orchestration and full RAG/legal corpus implementation must be integrated from the team's actual source.
+- Complete Hindi/Telugu UI localization and language-aware speech behaviour are not finished.
+- AI-generated legal information can be incomplete or wrong; statutory text and citations need verification against official sources.
 
-- Android XML layouts, manifest, resources, and app-level Gradle configuration.
-- AI-agent implementation and orchestration.
-- Full RAG implementation and legal corpus owned by the relevant teammate.
-- Complete localization of all screens and voice features in Hindi and Telugu.
-- Automated integration tests for the Android app and end-to-end AI flow.
+## Security
 
-The team's RAG implementation should be integrated with its owner's agreement and correct attribution. Do not present planned features as completed functionality.
-
-## Safety and privacy
-
-- Never commit API keys, access tokens, passwords, Firebase service-account files, keystores, `google-services.json`, or local machine configuration.
-- Keep real user legal records and personal information out of fixtures and public commits.
-- AI-generated legal information can be incomplete or incorrect. Verify statutes and citations against official sources and consult a qualified lawyer for case-specific advice.
-
-## Contribution workflow
-
-1. Work on a dedicated branch.
-2. Keep commits focused and descriptive.
-3. Add or update tests when changing backend behaviour.
-4. Build and test locally before claiming a feature is complete.
-5. Review all files for credentials and personal data before pushing.
+Never commit API keys, passwords, access tokens, Firebase service-account files, keystores, `google-services.json`, `local.properties`, real user case records, or personal information.
