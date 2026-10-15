@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:background="@color/vs_background">
+
+<!-- HEADER -->
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:background="@color/vs_navy"
+    android:gravity="center_vertical"
+    android:paddingStart="12dp"
+    android:paddingEnd="16dp">
+
+    <TextView
+        android:id="@+id/backButton"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:gravity="center"
+        android:text="‹"
+        android:textColor="@android:color/white"
+        android:textSize="32sp"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CITATION VERIFICATION"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Check and organize legal citations"
+            android:textColor="@color/vs_nav_inactive"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+<!-- CONTENT -->
+
+<ScrollView
+    android:id="@+id/citationScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
+        <!-- INTRO -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter the details of a legal authority to prepare a verification checklist."
+            android:textColor="@color/vs_secondary_text"
+            android:textSize="12sp"
+            android:lineSpacingExtra="3dp" />
+
+
+        <!-- CASE NAME -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="CASE NAME"
+            android:textColor="@color/vs_secondary_text"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/caseNameInput"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/document_input_card"
+            android:hint="Example: Case name"
+            android:padding="14dp"
+            android:singleLine="true"
+            android:textColor="@color/vs_primary_text"
+            android:textColorHint="@color/vs_secondary_text"
+            android:textSize="13sp" />
+
+
+        <!-- CITATION -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="CITATION"
+            android:textColor="@color/vs_secondary_text"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/citationInput"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/document_input_card"
+            android:gravity="top"
+            android:hint="Enter citation"
+            android:inputType="text"
+            android:padding="14dp"
+            android:textColor="@color/vs_primary_text"
+            android:textColorHint="@color/vs_secondary_text"
+            android:textSize="13sp" />
+
+
+        <!-- COURT -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="COURT / JURISDICTION"
+            android:textColor="@color/vs_secondary_text"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/courtInput"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/document_input_card"
+            android:hint="Example: Supreme Court of India"
+            android:padding="14dp"
+            android:singleLine="true"
+            android:textColor="@color/vs_primary_text"
+            android:textColorHint="@color/vs_secondary_text"
+            android:textSize="13sp" />
+
+
+        <!-- YEAR -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="YEAR"
+            android:textColor="@color/vs_secondary_text"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/yearInput"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/document_input_card"
+            android:hint="Example: 2024"
+            android:inputType="number"
+            android:padding="14dp"
+            android:singleLine="true"
+            android:textColor="@color/vs_primary_text"
+            android:textColorHint="@color/vs_secondary_text"
+            android:textSize="13sp" />
+
+
+        <!-- BUTTONS -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/clearButton"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:text="Clear"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/verifyButton"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="2"
+                android:layout_marginStart="6dp"
+                android:text="Verify Citation"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+
+        <!-- RESULT -->
+
+        <LinearLayout
+            android:id="@+id/resultCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/explanation_card"
+            android:orientation="vertical"
+            android:padding="18dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/resultStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Citation Added for Verification"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/resultText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="12sp"
+                android:lineSpacingExtra="3dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
+
+</LinearLayout>

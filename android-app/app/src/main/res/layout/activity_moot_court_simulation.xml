@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/vs_background">
+
+    <!-- HEADER -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="12dp"
+        android:background="@color/vs_navy">
+
+        <TextView
+            android:id="@+id/backButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="‹"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MOOT COURT"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/stageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Stage 1 of 5"
+                android:textColor="@color/vs_gold"
+                android:textSize="10sp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="LAB"
+            android:textColor="@color/vs_gold"
+            android:textSize="9sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+
+    <!-- MAIN CONTENT -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="18dp"
+            android:paddingBottom="35dp">
+
+
+            <!-- SIDE SELECTION -->
+
+            <LinearLayout
+                android:id="@+id/sideSelectionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Choose Your Side"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="23sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="You will represent one side of the fictional case."
+                    android:textColor="@color/vs_secondary_text"
+                    android:textSize="13sp"/>
+
+                <Button
+                    android:id="@+id/petitionerButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="22dp"
+                    android:text="Petitioner"
+                    android:textAllCaps="false"
+                    android:textColor="@color/vs_navy"
+                    android:background="@drawable/primary_button"/>
+
+                <Button
+                    android:id="@+id/respondentButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Respondent"
+                    android:textAllCaps="false"
+                    android:textColor="@color/vs_navy"
+                    android:background="@drawable/secondary_button"/>
+
+                <TextView
+                    android:id="@+id/selectedSideText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:textColor="@color/vs_navy"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+
+            <!-- CASE BRIEF -->
+
+            <LinearLayout
+                android:id="@+id/caseBriefLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Moot Problem"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="23sp"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="@drawable/simple_right_card">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="People of Navadesh v. Aarav Kumar"
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:text="Facts"
+                        android:textColor="@color/vs_navy"
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Aarav Kumar is alleged to have taken a valuable electronic device from a public office without permission. The prosecution relies on CCTV footage and statements from two witnesses. Aarav argues that he had permission to access the office and that the device was temporarily entrusted to him."
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:text="Issues"
+                        android:textColor="@color/vs_navy"
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="1. Whether the alleged taking of the device constitutes a criminal offence.\n2. Whether the available evidence sufficiently establishes the alleged conduct.\n3. Whether the defence explanation creates reasonable doubt."
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:text="Task"
+                        android:textColor="@color/vs_navy"
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Present your side's principal argument before the simulated court."
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- ARGUMENT -->
+
+            <LinearLayout
+                android:id="@+id/argumentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Present Your Argument"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="23sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Address the court respectfully. State the issue, applicable law, facts and conclusion."
+                    android:textColor="@color/vs_secondary_text"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/argumentInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/search_background"
+                    android:gravity="top"
+                    android:hint="Begin your submission..."
+                    android:inputType="textMultiLine"
+                    android:padding="14dp"
+                    android:textColor="@color/vs_primary_text"
+                    android:textColorHint="@color/vs_secondary_text"
+                    android:textSize="13sp"/>
+
+                <Button
+                    android:id="@+id/submitArgumentButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Submit Argument"
+                    android:textAllCaps="false"
+                    android:textColor="@color/vs_navy"
+                    android:background="@drawable/primary_button"/>
+
+            </LinearLayout>
+
+
+            <!-- RESPONSE -->
+
+            <LinearLayout
+                android:id="@+id/responseLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Respond to the Opposition"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="23sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="The opposing side argues that the evidence establishes the alleged conduct and that the defence explanation is unsupported. Respond to this contention."
+                    android:textColor="@color/vs_secondary_text"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/responseInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/search_background"
+                    android:gravity="top"
+                    android:hint="Present your rebuttal..."
+                    android:inputType="textMultiLine"
+                    android:padding="14dp"
+                    android:textColor="@color/vs_primary_text"
+                    android:textColorHint="@color/vs_secondary_text"
+                    android:textSize="13sp"/>
+
+                <Button
+                    android:id="@+id/submitResponseButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Submit Rebuttal"
+                    android:textAllCaps="false"
+                    android:textColor="@color/vs_navy"
+                    android:background="@drawable/primary_button"/>
+
+            </LinearLayout>
+
+
+            <!-- RESULT -->
+
+            <LinearLayout
+                android:id="@+id/resultLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Moot Court Result"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="23sp"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:orientation="vertical"
+                    android:padding="18dp"
+                    android:background="@drawable/simple_right_card">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Argument Score"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:id="@+id/argumentScoreText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="—"
+                        android:textColor="@color/vs_navy"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:text="Rebuttal Score"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:id="@+id/responseScoreText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="—"
+                        android:textColor="@color/vs_navy"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/argumentFeedbackText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:lineSpacingExtra="3dp"
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:id="@+id/finalFeedbackText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:lineSpacingExtra="3dp"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/restartButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Start Another Simulation"
+                    android:textAllCaps="false"
+                    android:textColor="@color/vs_navy"
+                    android:background="@drawable/primary_button"/>
+
+            </LinearLayout>
+
+
+            <!-- NEXT -->
+
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:text="Continue"
+                android:textAllCaps="false"
+                android:textColor="@color/vs_navy"
+                android:background="@drawable/primary_button"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

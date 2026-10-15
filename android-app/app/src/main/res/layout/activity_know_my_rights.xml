@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/vs_background">
+
+    <!-- ===================================================== -->
+    <!-- HEADER -->
+    <!-- ===================================================== -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="@color/vs_navy">
+
+        <TextView
+            android:id="@+id/backButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="‹"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Know My Rights"
+                android:textColor="@android:color/white"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Understand your legal rights"
+                android:textColor="@color/vs_nav_inactive"
+                android:textSize="11sp"
+                android:layout_marginTop="2dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!-- ===================================================== -->
+    <!-- CONTENT -->
+    <!-- ===================================================== -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:paddingBottom="32dp">
+
+
+            <!-- INTRODUCTION -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Know your rights"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Find simple information about rights and protections that may apply to you."
+                android:textColor="@color/vs_secondary_text"
+                android:textSize="14sp"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginTop="7dp" />
+
+
+            <!-- ================================================= -->
+            <!-- SEARCH -->
+            <!-- ================================================= -->
+
+            <EditText
+                android:id="@+id/searchRightsInput"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:hint="Search your rights"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/search_background"
+                android:layout_marginTop="20dp" />
+
+
+            <!-- ================================================= -->
+            <!-- SEARCH BUTTON -->
+            <!-- ================================================= -->
+
+            <Button
+                android:id="@+id/searchRightsButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Search"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/primary_button"
+                android:layout_marginTop="10dp" />
+
+
+            <!-- ================================================= -->
+            <!-- CATEGORIES -->
+            <!-- ================================================= -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Common topics"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="12dp" />
+
+
+            <!-- Family -->
+
+            <Button
+                android:id="@+id/familyRightsButton"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Family &amp; Marriage"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical"
+                android:paddingStart="18dp"
+                android:textSize="14sp"
+                android:background="@drawable/simple_right_card"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Property -->
+
+            <Button
+                android:id="@+id/propertyRightsButton"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Property &amp; Land"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical"
+                android:paddingStart="18dp"
+                android:textSize="14sp"
+                android:background="@drawable/simple_right_card"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Employment -->
+
+            <Button
+                android:id="@+id/employmentRightsButton"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Employment &amp; Workplace"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical"
+                android:paddingStart="18dp"
+                android:textSize="14sp"
+                android:background="@drawable/simple_right_card"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Consumer -->
+
+            <Button
+                android:id="@+id/consumerRightsButton"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Consumer Rights"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical"
+                android:paddingStart="18dp"
+                android:textSize="14sp"
+                android:background="@drawable/simple_right_card"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Police -->
+
+            <Button
+                android:id="@+id/policeRightsButton"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Police &amp; Complaints"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical"
+                android:paddingStart="18dp"
+                android:textSize="14sp"
+                android:background="@drawable/simple_right_card"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Women -->
+
+            <Button
+                android:id="@+id/womenRightsButton"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Women &amp; Safety"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical"
+                android:paddingStart="18dp"
+                android:textSize="14sp"
+                android:background="@drawable/simple_right_card"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Children -->
+
+            <Button
+                android:id="@+id/childrenRightsButton"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Children &amp; Education"
+                android:textAllCaps="false"
+                android:gravity="start|center_vertical"
+                android:paddingStart="18dp"
+                android:textSize="14sp"
+                android:background="@drawable/simple_right_card"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- ================================================= -->
+            <!-- RESULT -->
+            <!-- ================================================= -->
+
+            <TextView
+                android:id="@+id/rightsResultTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Information"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:id="@+id/rightsResultText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select a topic or search for a right to see information here."
+                android:textColor="@color/vs_secondary_text"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp"
+                android:padding="16dp"
+                android:background="@drawable/explanation_card"
+                android:layout_marginTop="10dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

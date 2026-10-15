@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/vs_background">
+
+    <!-- HEADER -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="12dp"
+        android:background="@color/vs_navy">
+
+        <TextView
+            android:id="@+id/backButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="‹"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Case Preparation"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="LAW"
+            android:textColor="@color/vs_gold"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <!-- CONTENT -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="18dp"
+            android:paddingBottom="35dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Prepare Your Case"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Organise facts, issues, laws and arguments for your legal studies."
+                android:textColor="@color/vs_secondary_text"
+                android:textSize="13sp" />
+
+
+            <!-- CASE TITLE -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Case Title"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/caseTitleInput"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/search_background"
+                android:hint="Example: State v. Kumar"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:textColor="@color/vs_primary_text"
+                android:textColorHint="@color/vs_secondary_text"
+                android:textSize="13sp"
+                android:singleLine="true" />
+
+
+            <!-- PARTIES -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Parties"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/partiesInput"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/search_background"
+                android:hint="Names of parties"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:textColor="@color/vs_primary_text"
+                android:textColorHint="@color/vs_secondary_text"
+                android:textSize="13sp"
+                android:singleLine="true" />
+
+
+            <!-- FACTS -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Important Facts *"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/factsInput"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/search_background"
+                android:gravity="top"
+                android:hint="Describe the important facts of the case"
+                android:inputType="textMultiLine"
+                android:padding="14dp"
+                android:textColor="@color/vs_primary_text"
+                android:textColorHint="@color/vs_secondary_text"
+                android:textSize="13sp" />
+
+
+            <!-- ISSUES -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Legal Issues"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/issuesInput"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/search_background"
+                android:gravity="top"
+                android:hint="What legal questions need to be decided?"
+                android:inputType="textMultiLine"
+                android:padding="14dp"
+                android:textColor="@color/vs_primary_text"
+                android:textColorHint="@color/vs_secondary_text"
+                android:textSize="13sp" />
+
+
+            <!-- LAWS -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Applicable Laws"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/lawsInput"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/search_background"
+                android:gravity="top"
+                android:hint="BNS, BNSS, Constitution, Acts or other provisions"
+                android:inputType="textMultiLine"
+                android:padding="14dp"
+                android:textColor="@color/vs_primary_text"
+                android:textColorHint="@color/vs_secondary_text"
+                android:textSize="13sp" />
+
+
+            <!-- ARGUMENTS -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Key Arguments"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/argumentsInput"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/search_background"
+                android:gravity="top"
+                android:hint="Write arguments for your side"
+                android:inputType="textMultiLine"
+                android:padding="14dp"
+                android:textColor="@color/vs_primary_text"
+                android:textColorHint="@color/vs_secondary_text"
+                android:textSize="13sp" />
+
+
+            <!-- BUTTONS -->
+
+            <Button
+                android:id="@+id/generateButton"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:text="Generate Preparation"
+                android:textAllCaps="false"
+                android:textColor="@color/vs_navy"
+                android:background="@drawable/primary_button" />
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="10dp"
+                android:text="Save Preparation"
+                android:textAllCaps="false"
+                android:textColor="@color/vs_navy"
+                android:background="@drawable/secondary_button" />
+
+            <Button
+                android:id="@+id/viewSavedButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:text="View Saved Preparations"
+                android:textAllCaps="false"
+                android:textColor="@color/vs_navy"
+                android:background="@drawable/secondary_button" />
+
+            <Button
+                android:id="@+id/clearButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:text="Clear"
+                android:textAllCaps="false"
+                android:textColor="@color/vs_navy"
+                android:background="@drawable/secondary_button" />
+
+
+            <!-- SAVED COUNT -->
+
+            <TextView
+                android:id="@+id/savedCountText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="No saved preparations"
+                android:textColor="@color/vs_secondary_text"
+                android:textSize="12sp" />
+
+
+            <!-- PREVIEW -->
+
+            <LinearLayout
+                android:id="@+id/previewCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:background="@drawable/simple_right_card"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Preparation Preview"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/previewTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/vs_navy"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/previewText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:lineSpacingExtra="3dp"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

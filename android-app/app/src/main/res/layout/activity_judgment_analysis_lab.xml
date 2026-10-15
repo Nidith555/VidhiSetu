@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/vs_background">
+
+    <!-- HEADER -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/vs_navy"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/backButton"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:gravity="center"
+            android:text="‹"
+            android:textColor="@android:color/white"
+            android:textSize="32sp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="JUDGMENT ANALYSIS LAB"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Learn to analyse judicial decisions"
+                android:textColor="@color/vs_nav_inactive"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!-- CONTENT -->
+
+    <ScrollView
+        android:id="@+id/studentScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- TITLE -->
+
+            <TextView
+                android:id="@+id/judgmentTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Judgment 01"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+
+
+            <!-- JUDGMENT BRIEF -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="JUDGMENT BRIEF"
+                android:textColor="@color/vs_secondary_text"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/judgmentBrief"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/simple_right_card"
+                android:padding="15dp"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="13sp"
+                android:lineSpacingExtra="3dp" />
+
+
+            <!-- TASK -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="ANALYSIS TASK"
+                android:textColor="@color/vs_secondary_text"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/analysisTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/explanation_card"
+                android:padding="15dp"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="13sp"
+                android:lineSpacingExtra="3dp" />
+
+
+            <!-- ISSUE -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="1. CENTRAL LEGAL ISSUE"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/issueInput"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/document_input_card"
+                android:gravity="top"
+                android:hint="What was the central legal issue?"
+                android:inputType="textMultiLine"
+                android:padding="14dp"
+                android:textColor="@color/vs_primary_text"
+                android:textColorHint="@color/vs_secondary_text"
+                android:textSize="13sp" />
+
+
+            <!-- PROVISIONS -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="2. RELEVANT PROVISIONS"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/provisionsInput"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/document_input_card"
+                android:gravity="top"
+                android:hint="Mention the relevant Articles or legal provisions."
+                android:inputType="textMultiLine"
+                android:padding="14dp"
+                android:textColor="@color/vs_primary_text"
+                android:textColorHint="@color/vs_secondary_text"
+                android:textSize="13sp" />
+
+
+            <!-- REASONING -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="3. COURT'S REASONING"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/reasoningInput"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/document_input_card"
+                android:gravity="top"
+                android:hint="Explain how the Court reasoned through the issue."
+                android:inputType="textMultiLine"
+                android:padding="14dp"
+                android:textColor="@color/vs_primary_text"
+                android:textColorHint="@color/vs_secondary_text"
+                android:textSize="13sp" />
+
+
+            <!-- HOLDING -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="4. FINAL HOLDING"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/holdingInput"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/document_input_card"
+                android:gravity="top"
+                android:hint="What did the Court ultimately decide?"
+                android:inputType="textMultiLine"
+                android:padding="14dp"
+                android:textColor="@color/vs_primary_text"
+                android:textColorHint="@color/vs_secondary_text"
+                android:textSize="13sp" />
+
+
+            <!-- SIGNIFICANCE -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="5. SIGNIFICANCE"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/significanceInput"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/document_input_card"
+                android:gravity="top"
+                android:hint="Explain why this judgment is important."
+                android:inputType="textMultiLine"
+                android:padding="14dp"
+                android:textColor="@color/vs_primary_text"
+                android:textColorHint="@color/vs_secondary_text"
+                android:textSize="13sp" />
+
+
+            <!-- BUTTONS -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/clearButton"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:text="Clear"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/submitButton"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="2"
+                    android:layout_marginStart="6dp"
+                    android:text="Analyse Judgment"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
+
+
+            <!-- RESULT -->
+
+            <LinearLayout
+                android:id="@+id/resultCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/explanation_card"
+                android:orientation="vertical"
+                android:padding="18dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PRACTICE RESULT"
+                    android:textColor="@color/vs_secondary_text"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/scoreText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="0 / 100"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/feedbackText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="3dp" />
+
+                <Button
+                    android:id="@+id/restartButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Try Again"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

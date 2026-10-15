@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/vs_background">
+
+    <!-- ================= HEADER ================= -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="12dp"
+        android:background="@color/vs_navy">
+
+        <TextView
+            android:id="@+id/backButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="‹"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Find Relevant Laws"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Indian legal information"
+                android:textColor="@color/vs_nav_inactive"
+                android:textSize="10sp"
+                android:layout_marginTop="2dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="LAW"
+            android:textColor="@color/vs_gold"
+            android:textSize="8sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="18dp"
+            android:paddingBottom="32dp">
+
+            <!-- INTRO -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Which law are you looking for?"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Search by law name, legal topic, or choose from the commonly used laws below."
+                android:textColor="@color/vs_secondary_text"
+                android:textSize="13sp"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginTop="6dp" />
+
+
+            <!-- ================= SEARCH ================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/search_background"
+                android:layout_marginTop="18dp">
+
+                <EditText
+                    android:id="@+id/searchInput"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="Example: theft, property, consumer"
+                    android:textColor="@color/vs_primary_text"
+                    android:textColorHint="@color/vs_secondary_text"
+                    android:textSize="13sp"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:imeOptions="actionSearch"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/searchButton"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:gravity="center"
+                    android:text="⌕"
+                    android:textColor="@color/vs_navy"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+            </LinearLayout>
+
+
+            <!-- ================= QUICK LAWS ================= -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Important laws"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/bnsCard"
+                    android:layout_width="0dp"
+                    android:layout_height="78dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:padding="12dp"
+                    android:background="@drawable/simple_right_card"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BNS"
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="2023"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="10sp"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="1dp" />
+
+                <LinearLayout
+                    android:id="@+id/bnssCard"
+                    android:layout_width="0dp"
+                    android:layout_height="78dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:padding="12dp"
+                    android:background="@drawable/simple_right_card"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BNSS"
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="2023"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="10sp"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:id="@+id/bsaCard"
+                    android:layout_width="0dp"
+                    android:layout_height="78dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:padding="12dp"
+                    android:background="@drawable/simple_right_card"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BSA"
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="2023"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="10sp"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="1dp" />
+
+                <LinearLayout
+                    android:id="@+id/constitutionCard"
+                    android:layout_width="0dp"
+                    android:layout_height="78dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:padding="12dp"
+                    android:background="@drawable/simple_right_card"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Constitution"
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="India"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="10sp"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- ================= RESULTS ================= -->
+
+            <TextView
+                android:id="@+id/resultsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Search results"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:layout_marginTop="26dp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/resultsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/emptyResultText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/vs_secondary_text"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:padding="20dp"
+                android:visibility="gone" />
+
+
+            <!-- ================= SOURCE NOTE ================= -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Legal texts are opened from the official India Code source."
+                android:textColor="@color/vs_secondary_text"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:layout_marginTop="24dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/vs_background">
+
+    <!-- HEADER -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="14dp"
+        android:background="@color/vs_navy">
+
+        <TextView
+            android:id="@+id/backButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="‹"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Get Legal Help"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="HELP"
+            android:textColor="@color/vs_gold"
+            android:textSize="7sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="20dp">
+
+            <!-- INTRO -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You don't have to handle it alone"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choose the type of support you need and we'll help you find the right next step."
+                android:textColor="@color/vs_secondary_text"
+                android:textSize="11sp"
+                android:lineSpacingExtra="2dp"
+                android:layout_marginTop="3dp" />
+
+            <!-- TALK TO LAWYER -->
+
+            <LinearLayout
+                android:id="@+id/talkToLawyerCard"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="8dp"
+                android:background="@drawable/simple_right_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginTop="14dp">
+
+                <TextView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:gravity="center"
+                    android:text="⚖"
+                    android:textSize="22sp"
+                    android:textColor="@color/vs_navy"
+                    android:background="@drawable/document_icon_circle" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Talk to a Lawyer"
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Request help with your legal issue"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="9sp"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="24dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="›"
+                    android:textColor="@color/vs_gold"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <!-- LEGAL AID -->
+
+            <LinearLayout
+                android:id="@+id/legalAidCard"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="8dp"
+                android:background="@drawable/simple_right_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:gravity="center"
+                    android:text="▥"
+                    android:textSize="23sp"
+                    android:textColor="@color/vs_navy"
+                    android:background="@drawable/document_icon_circle" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Legal Aid"
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Explore free legal-aid assistance"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="9sp"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="24dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="›"
+                    android:textColor="@color/vs_gold"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <!-- FIND NEARBY HELP -->
+
+            <LinearLayout
+                android:id="@+id/findNearbyHelpCard"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="8dp"
+                android:background="@drawable/simple_right_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:gravity="center"
+                    android:text="📍"
+                    android:textSize="20sp"
+                    android:background="@drawable/document_icon_circle" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Find Nearby Help"
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Find legal services near you"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="9sp"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="24dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="›"
+                    android:textColor="@color/vs_gold"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <!-- URGENT HELP -->
+
+            <LinearLayout
+                android:id="@+id/urgentHelpCard"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="8dp"
+                android:background="@drawable/simple_right_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:gravity="center"
+                    android:text="☎"
+                    android:textSize="23sp"
+                    android:textColor="@color/vs_navy"
+                    android:background="@drawable/document_icon_circle" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Urgent Legal Help"
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Get immediate emergency assistance"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="9sp"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="24dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="›"
+                    android:textColor="@color/vs_gold"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="42dp" />
+
+            <!-- ASK VIDHISETU -->
+
+            <Button
+                android:id="@+id/askVidhiSetuButton"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:text="🎙  Not sure? Ask VidhiSetu"
+                android:textAllCaps="false"
+                android:textColor="@color/vs_navy"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:background="@drawable/primary_button" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

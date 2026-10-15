@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="4dp">
+
+        <EditText
+            android:id="@+id/caseTitleInput"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:hint="Case title *"
+            android:singleLine="true"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/courtInput"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:hint="Court"
+            android:singleLine="true"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/areaInput"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:hint="Legal area"
+            android:singleLine="true"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/resultInput"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:hint="Result / outcome"
+            android:singleLine="true"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/notesInput"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:gravity="top"
+            android:hint="Notes"
+            android:inputType="textMultiLine"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+</ScrollView>

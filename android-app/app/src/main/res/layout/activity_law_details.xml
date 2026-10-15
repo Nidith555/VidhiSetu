@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/vs_background">
+
+    <!-- HEADER -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="12dp"
+        android:background="@color/vs_navy">
+
+        <TextView
+            android:id="@+id/backButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="‹"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Law Details"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="LAW"
+            android:textColor="@color/vs_gold"
+            android:textSize="8sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <!-- CONTENT -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:paddingBottom="30dp">
+
+            <TextView
+                android:id="@+id/lawShortName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="BNS 2023"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lawFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bharatiya Nyaya Sanhita, 2023"
+                android:textColor="@color/vs_secondary_text"
+                android:textSize="14sp"
+                android:lineSpacingExtra="3dp"
+                android:layout_marginTop="7dp" />
+
+
+            <!-- INFO CARD -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="17dp"
+                android:background="@drawable/explanation_card"
+                android:layout_marginTop="22dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="About this law"
+                    android:textColor="@color/vs_gold"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lawDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Information"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="5dp"
+                    android:layout_marginTop="9dp" />
+
+            </LinearLayout>
+
+
+            <!-- OFFICIAL SOURCE -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Official source"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="26dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="For the authoritative text, sections and schedules, use the official India Code source."
+                android:textColor="@color/vs_secondary_text"
+                android:textSize="13sp"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginTop="5dp" />
+
+            <Button
+                android:id="@+id/openOfficialSourceButton"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="Open Official India Code"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:background="@drawable/primary_button"
+                android:layout_marginTop="15dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/vs_background">
+
+    <!-- ===================================================== -->
+    <!-- HEADER -->
+    <!-- ===================================================== -->
+
+    <LinearLayout
+        android:id="@+id/studentHeader"
+        android:layout_width="0dp"
+        android:layout_height="142dp"
+        android:background="@color/vs_navy"
+        android:orientation="vertical"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="14dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Top Row -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/topProfileButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="👤"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VIDHISETU"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.12" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Student Portal"
+                    android:textColor="@color/vs_gold"
+                    android:textSize="8sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <!-- Greeting -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:text="Good morning 👋"
+            android:textColor="@android:color/white"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Learn, practice and prepare with VidhiSetu"
+            android:textColor="#D5DDE5"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+
+    <!-- ===================================================== -->
+    <!-- SCROLLABLE CONTENT -->
+    <!-- ===================================================== -->
+
+    <ScrollView
+        android:id="@+id/studentScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toBottomOf="@id/studentHeader"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="14dp"
+            android:paddingBottom="18dp">
+
+
+            <!-- ================================================= -->
+            <!-- LEARNING TOOLS -->
+            <!-- ================================================= -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="LEARNING TOOLS"
+                android:textColor="#9B7B2D"
+                android:textSize="9sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.15" />
+
+
+            <!-- AI Legal Tutor -->
+
+            <LinearLayout
+                android:id="@+id/tutorCard"
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/profile_option_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="10dp">
+
+                <FrameLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/service_icon_background">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="🎓"
+                        android:textSize="23sp" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AI Legal Tutor"
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="Learn legal concepts with AI guidance"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="›"
+                    android:textColor="#B78618"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+            <!-- ================================================= -->
+            <!-- SIMULATION LABS -->
+            <!-- ================================================= -->
+
+            <LinearLayout
+                android:id="@+id/simulationLabsCard"
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/profile_option_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="10dp">
+
+                <FrameLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/service_icon_background">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="⚖️"
+                        android:textSize="23sp" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Simulation Labs"
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="Practice courtroom and legal skills"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="›"
+                    android:textColor="#B78618"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+
+
+            <!-- Case Library -->
+
+            <LinearLayout
+                android:id="@+id/caseLibraryCard"
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/profile_option_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="10dp">
+
+                <FrameLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/service_icon_background">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="⚖️"
+                        android:textSize="23sp" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Case Library"
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="Explore important cases and judgments"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="›"
+                    android:textColor="#B78618"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+
+
+            <!-- ================================================= -->
+            <!-- TWO MAIN CARDS -->
+            <!-- ================================================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="132dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:orientation="horizontal">
+
+                <!-- Practice -->
+
+                <LinearLayout
+                    android:id="@+id/practiceCard"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/profile_option_card"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/service_icon_background"
+                        android:gravity="center"
+                        android:text="📝"
+                        android:textSize="23sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Practice"
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="MCQs &amp; quizzes"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="8sp" />
+
+                </LinearLayout>
+
+
+                <!-- Case Preparation -->
+
+                <LinearLayout
+                    android:id="@+id/casePreparationCard"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/profile_option_card"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/service_icon_background"
+                        android:gravity="center"
+                        android:text="📋"
+                        android:textSize="23sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Case Preparation"
+                        android:textColor="@color/vs_primary_text"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Prepare arguments"
+                        android:textColor="@color/vs_secondary_text"
+                        android:textSize="8sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- ================================================= -->
+            <!-- MY LEARNING -->
+            <!-- ================================================= -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="16dp"
+                android:text="MY LEARNING"
+                android:textColor="#9B7B2D"
+                android:textSize="9sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.15" />
+
+
+            <!-- Current Practice -->
+
+            <LinearLayout
+                android:id="@+id/currentPracticeCard"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/profile_option_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp">
+
+                <TextView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/service_icon_background"
+                    android:gravity="center"
+                    android:text="🎯"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:text="Current Practice"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Continue ›"
+                    android:textColor="@color/vs_secondary_text"
+                    android:textSize="9sp" />
+
+            </LinearLayout>
+
+
+            <!-- Argument Performance -->
+
+            <LinearLayout
+                android:id="@+id/argumentPerformanceCard"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/profile_option_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp">
+
+                <TextView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/service_icon_background"
+                    android:gravity="center"
+                    android:text="📊"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:text="Argument Performance"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View ›"
+                    android:textColor="@color/vs_secondary_text"
+                    android:textSize="9sp" />
+
+            </LinearLayout>
+
+
+            <!-- Completed Cases -->
+
+            <LinearLayout
+                android:id="@+id/completedCasesCard"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/profile_option_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp">
+
+                <TextView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/service_icon_background"
+                    android:gravity="center"
+                    android:text="✅"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:text="Completed Cases"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View ›"
+                    android:textColor="@color/vs_secondary_text"
+                    android:textSize="9sp" />
+
+            </LinearLayout>
+
+
+            <!-- ================================================= -->
+            <!-- RESOURCES -->
+            <!-- ================================================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="LEGAL RESOURCES"
+                    android:textColor="#9B7B2D"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.15" />
+
+                <TextView
+                    android:id="@+id/viewAllResources"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="View all"
+                    android:textColor="@color/vs_navy"
+                    android:textSize="9sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/profile_option_card"
+                android:gravity="center"
+                android:text="Constitution  •  BNS  •  BNSS  •  BSA  •  Case Law  •  Legal Terms"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="9sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <!-- ===================================================== -->
+    <!-- BOTTOM NAVIGATION -->
+    <!-- ===================================================== -->
+
+    <FrameLayout
+        android:id="@+id/bottomNavigation"
+        android:layout_width="0dp"
+        android:layout_height="76dp"
+        android:background="@color/vs_navy"
+        android:elevation="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <!-- Home -->
+
+            <LinearLayout
+                android:id="@+id/homeNav"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⌂"
+                    android:textColor="@color/vs_gold"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home"
+                    android:textColor="@color/vs_gold"
+                    android:textSize="8sp" />
+
+            </LinearLayout>
+
+
+            <!-- Practice -->
+
+            <LinearLayout
+                android:id="@+id/practiceNav"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📝"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Practice"
+                    android:textColor="@color/vs_nav_inactive"
+                    android:textSize="8sp" />
+
+            </LinearLayout>
+
+
+            <!-- Ask Tutor -->
+
+            <FrameLayout
+                android:id="@+id/askTutorContainer"
+                android:layout_width="72dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/askTutorButton"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/mic_button"
+                    android:gravity="center"
+                    android:text="🎙"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp" />
+
+            </FrameLayout>
+
+
+            <!-- Resources -->
+
+            <LinearLayout
+                android:id="@+id/resourcesNav"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📚"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Resources"
+                    android:textColor="@color/vs_nav_inactive"
+                    android:textSize="8sp" />
+
+            </LinearLayout>
+
+
+            <!-- Profile -->
+
+            <LinearLayout
+                android:id="@+id/profileNav"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="👤"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Profile"
+                    android:textColor="@color/vs_nav_inactive"
+                    android:textSize="8sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

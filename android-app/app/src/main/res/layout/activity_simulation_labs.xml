@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/vs_background">
+
+    <!-- HEADER -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="12dp"
+        android:background="@color/vs_navy">
+
+        <TextView
+            android:id="@+id/backButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="‹"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Simulation Labs"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="LAB"
+            android:textColor="@color/vs_gold"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <!-- CONTENT -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="18dp"
+            android:paddingBottom="35dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Simulation Labs"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Practice practical legal skills through interactive scenarios and simulated legal proceedings."
+                android:textColor="@color/vs_secondary_text"
+                android:textSize="13sp" />
+
+
+            <!-- MOOT COURT -->
+
+            <LinearLayout
+                android:id="@+id/mootCourtCard"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:padding="18dp"
+                android:background="@drawable/simple_right_card"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="⚖️  Moot Court Simulation"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="Argue a fictional case and practice before a simulated court."
+                    android:textColor="@color/vs_secondary_text"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+            <!-- COURTROOM -->
+
+            <LinearLayout
+                android:id="@+id/courtroomCard"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:background="@drawable/simple_right_card"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🏛️  Courtroom Simulation"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Practice courtroom procedure and responses."
+                    android:textColor="@color/vs_secondary_text"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+            <!-- CASE ANALYSIS -->
+
+            <LinearLayout
+                android:id="@+id/caseAnalysisCard"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:background="@drawable/simple_right_card"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="📋  Case Analysis Lab"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Analyse facts, issues, evidence and applicable law."
+                    android:textColor="@color/vs_secondary_text"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+            <!-- ARGUMENT LAB -->
+
+            <LinearLayout
+                android:id="@+id/argumentLabCard"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:background="@drawable/simple_right_card"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🗣️  Argument Practice Lab"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Practice legal arguments and receive structured feedback."
+                    android:textColor="@color/vs_secondary_text"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+            <!-- LEGAL RESEARCH -->
+
+            <LinearLayout
+                android:id="@+id/legalResearchCard"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:background="@drawable/simple_right_card"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🔎  Legal Research Lab"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Find relevant laws and legal provisions."
+                    android:textColor="@color/vs_secondary_text"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+            <!-- DRAFTING -->
+
+            <LinearLayout
+                android:id="@+id/draftingLabCard"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:background="@drawable/simple_right_card"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="📄  Drafting Lab"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Practice preparing legal documents and applications."
+                    android:textColor="@color/vs_secondary_text"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+            <!-- JUDGMENT ANALYSIS -->
+
+            <LinearLayout
+                android:id="@+id/judgmentAnalysisCard"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:background="@drawable/simple_right_card"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="📚  Judgment Analysis Lab"
+                    android:textColor="@color/vs_primary_text"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Break down judgments into facts, issues, reasoning and decision."
+                    android:textColor="@color/vs_secondary_text"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

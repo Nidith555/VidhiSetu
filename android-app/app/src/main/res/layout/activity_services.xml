@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F4EC">
+
+    <!-- ================================================= -->
+    <!-- HEADER                                            -->
+    <!-- ================================================= -->
+
+    <View
+        android:id="@+id/headerBackground"
+        android:layout_width="0dp"
+        android:layout_height="82dp"
+        android:background="#071D32"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="19dp"
+        android:background="@android:color/transparent"
+        android:src="@android:drawable/ic_menu_revert"
+        android:contentDescription="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Legal Services"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/backButton"
+        app:layout_constraintBottom_toBottomOf="@id/backButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/headerBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:text="VIDHISETU"
+        android:textColor="#F4C24F"
+        android:textSize="8sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/backButton"
+        app:layout_constraintBottom_toBottomOf="@id/backButton" />
+
+    <!-- ================================================= -->
+    <!-- INTRO                                             -->
+    <!-- ================================================= -->
+
+    <TextView
+        android:id="@+id/introTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="18dp"
+        android:text="How can VidhiSetu help?"
+        android:textColor="#071D32"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/headerBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/introText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="5dp"
+        android:text="Choose a service based on what you need. No legal knowledge is required."
+        android:textColor="#6E7780"
+        android:textSize="11sp"
+        android:lineSpacingExtra="2dp"
+        app:layout_constraintTop_toBottomOf="@id/introTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ================================================= -->
+    <!-- SERVICES SCROLL AREA                               -->
+    <!-- ================================================= -->
+
+    <ScrollView
+        android:id="@+id/servicesScroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/introText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="25dp">
+
+            <!-- ========================================= -->
+            <!-- LEGAL GUIDANCE                             -->
+            <!-- ========================================= -->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/legalGuidanceCard"
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/service_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="13dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/documentAnalysisCard">
+
+                <TextView
+                    android:id="@+id/legalGuidanceIcon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="⚖"
+                    android:textColor="#9A7614"
+                    android:textSize="26sp"
+                    android:background="@drawable/service_icon_background"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/legalGuidanceTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Legal Guidance"
+                    android:textColor="#071D32"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/legalGuidanceIcon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/legalGuidanceDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Understand your legal problem"
+                    android:textColor="#777F86"
+                    android:textSize="9sp"
+                    app:layout_constraintTop_toBottomOf="@id/legalGuidanceTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ========================================= -->
+            <!-- DOCUMENT ANALYSIS                         -->
+            <!-- ========================================= -->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/documentAnalysisCard"
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/service_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="13dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/legalGuidanceCard"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/documentAnalysisIcon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="📄"
+                    android:textSize="24sp"
+                    android:background="@drawable/service_icon_background"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/documentAnalysisTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Document Analysis"
+                    android:textColor="#071D32"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/documentAnalysisIcon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/documentAnalysisDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Understand notices and documents"
+                    android:textColor="#777F86"
+                    android:textSize="9sp"
+                    app:layout_constraintTop_toBottomOf="@id/documentAnalysisTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ========================================= -->
+            <!-- RELEVANT LAWS                             -->
+            <!-- ========================================= -->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/relevantLawsCard"
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/service_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="13dp"
+                app:layout_constraintTop_toBottomOf="@id/legalGuidanceCard"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/rightsSchemesCard">
+
+                <TextView
+                    android:id="@+id/relevantLawsIcon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="📚"
+                    android:textSize="24sp"
+                    android:background="@drawable/service_icon_background"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/relevantLawsTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Find Relevant Laws"
+                    android:textColor="#071D32"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/relevantLawsIcon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Discover laws related to your issue"
+                    android:textColor="#777F86"
+                    android:textSize="9sp"
+                    app:layout_constraintTop_toBottomOf="@id/relevantLawsTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ========================================= -->
+            <!-- RIGHTS & SCHEMES                          -->
+            <!-- ========================================= -->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rightsSchemesCard"
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/service_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="13dp"
+                app:layout_constraintTop_toBottomOf="@id/documentAnalysisCard"
+                app:layout_constraintStart_toEndOf="@id/relevantLawsCard"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/rightsSchemesIcon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="🛡"
+                    android:textSize="24sp"
+                    android:background="@drawable/service_icon_background"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/rightsSchemesTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Rights &amp; Schemes"
+                    android:textColor="#071D32"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/rightsSchemesIcon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Explore rights and public schemes"
+                    android:textColor="#777F86"
+                    android:textSize="9sp"
+                    app:layout_constraintTop_toBottomOf="@id/rightsSchemesTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ========================================= -->
+            <!-- LEGAL AID                                -->
+            <!-- ========================================= -->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/legalAidCard"
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/service_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="13dp"
+                app:layout_constraintTop_toBottomOf="@id/relevantLawsCard"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/documentDraftingCard">
+
+                <TextView
+                    android:id="@+id/legalAidIcon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="🏛"
+                    android:textSize="24sp"
+                    android:background="@drawable/service_icon_background"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/legalAidTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Legal Aid"
+                    android:textColor="#071D32"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/legalAidIcon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Find pathways to legal assistance"
+                    android:textColor="#777F86"
+                    android:textSize="9sp"
+                    app:layout_constraintTop_toBottomOf="@id/legalAidTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ========================================= -->
+            <!-- DOCUMENT DRAFTING                          -->
+            <!-- ========================================= -->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/documentDraftingCard"
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/service_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="13dp"
+                app:layout_constraintTop_toBottomOf="@id/rightsSchemesCard"
+                app:layout_constraintStart_toEndOf="@id/legalAidCard"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/documentDraftingIcon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="✍"
+                    android:textColor="#9A7614"
+                    android:textSize="24sp"
+                    android:background="@drawable/service_icon_background"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/documentDraftingTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Document Drafting"
+                    android:textColor="#071D32"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/documentDraftingIcon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Create basic legal document drafts"
+                    android:textColor="#777F86"
+                    android:textSize="9sp"
+                    app:layout_constraintTop_toBottomOf="@id/documentDraftingTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ========================================= -->
+            <!-- VOICE ASSISTANT                            -->
+            <!-- ========================================= -->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/voiceAssistantCard"
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/service_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="13dp"
+                app:layout_constraintTop_toBottomOf="@id/legalAidCard"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/caseManagementCard">
+
+                <TextView
+                    android:id="@+id/voiceAssistantIcon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="🎙"
+                    android:textSize="24sp"
+                    android:background="@drawable/service_icon_background"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/voiceAssistantTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Voice Assistant"
+                    android:textColor="#071D32"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/voiceAssistantIcon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Speak your question naturally"
+                    android:textColor="#777F86"
+                    android:textSize="9sp"
+                    app:layout_constraintTop_toBottomOf="@id/voiceAssistantTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ========================================= -->
+            <!-- CASE MANAGEMENT                            -->
+            <!-- ========================================= -->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/caseManagementCard"
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/service_dashboard_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="13dp"
+                app:layout_constraintTop_toBottomOf="@id/documentDraftingCard"
+                app:layout_constraintStart_toEndOf="@id/voiceAssistantCard"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/caseManagementIcon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="📁"
+                    android:textSize="24sp"
+                    android:background="@drawable/service_icon_background"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/caseManagementTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Case Management"
+                    android:textColor="#071D32"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/caseManagementIcon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Save and organize your matters"
+                    android:textColor="#777F86"
+                    android:textSize="9sp"
+                    app:layout_constraintTop_toBottomOf="@id/caseManagementTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
