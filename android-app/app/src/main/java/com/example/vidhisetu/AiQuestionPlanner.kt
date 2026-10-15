@@ -9,5 +9,6 @@ interface AiQuestionPlanner {
 
 data class AiQuestionResult(
     val complete: Boolean,
-    val question: String?
+    val question: String?,
+    val fallback: Boolean = false
 )

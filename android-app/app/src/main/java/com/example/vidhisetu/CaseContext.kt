@@ -16,7 +16,9 @@ data class CaseContext(
 
     var additionalDetails: String = "",
 
-    var questionCount: Int = 0
+    var questionCount: Int = 0,
+
+    var language: String = "en"
 ) {
 
     fun buildSummary(): String {

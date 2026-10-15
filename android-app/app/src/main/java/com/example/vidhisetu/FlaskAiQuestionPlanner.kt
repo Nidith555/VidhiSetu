@@ -9,16 +9,7 @@ import java.net.URL
 class FlaskAiQuestionPlanner : AiQuestionPlanner {
 
     companion object {
-        /*
-         * Android Emulator:
-         * 10.0.2.2 means the Windows host computer.
-         *
-         * If you later test on a physical phone,
-         * this address must be changed to your PC's
-         * local network IP address.
-         */
-        private const val BASE_URL =
-            "http://192.168.137.78:5000"
+        private const val BASE_URL = "https://vidhisetu-backend.onrender.com"
     }
 
     override suspend fun getNextQuestion(
@@ -49,6 +40,8 @@ class FlaskAiQuestionPlanner : AiQuestionPlanner {
             )
 
             val requestBody = JSONObject().apply {
+
+                put("language", caseContext.language)
 
                 put(
                     "initialProblem",
@@ -130,7 +123,8 @@ class FlaskAiQuestionPlanner : AiQuestionPlanner {
 
             AiQuestionResult(
                 complete = complete,
-                question = question
+                question = question,
+                fallback = json.optBoolean("fallback", false)
             )
 
         } finally {

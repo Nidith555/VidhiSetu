@@ -82,7 +82,16 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         binding.languageCard.setOnClickListener {
-            showMessage("Language Settings")
+            AppLanguage.showPicker(this) { selected ->
+                showMessage(
+                    AppLanguage.text(
+                        selected,
+                        "Language set to English. Ask VidhiSetu intake and voice will use English.",
+                        "भाषा हिंदी पर सेट की गई है। प्रश्न और आवाज़ हिंदी में होंगे।",
+                        "భాష తెలుగుకు మార్చబడింది. ప్రశ్నలు మరియు వాయిస్ తెలుగులో ఉంటాయి."
+                    )
+                )
+            }
         }
 
         binding.voiceSettingsCard.setOnClickListener {
