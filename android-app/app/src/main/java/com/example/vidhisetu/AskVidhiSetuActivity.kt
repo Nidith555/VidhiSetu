@@ -18,7 +18,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.vidhisetu.databinding.ActivityAskVidhisetuBinding
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 class AskVidhiSetuActivity : AppCompatActivity() {
 
@@ -55,6 +54,7 @@ class AskVidhiSetuActivity : AppCompatActivity() {
         FlaskAiQuestionPlanner()
 
     private var currentQuestionNumber = 0
+    private var showedFallbackNotice = false
 
     // =========================================================
     // MICROPHONE PERMISSION
@@ -99,6 +99,8 @@ class AskVidhiSetuActivity : AppCompatActivity() {
         setContentView(
             binding.root
         )
+
+        caseContext.language = AppLanguage.getCode(this)
 
         setupSpeech()
 
@@ -149,6 +151,8 @@ class AskVidhiSetuActivity : AppCompatActivity() {
                     }
                 }
             )
+
+        aiSpeechController.setLanguage(caseContext.language)
     }
 
     // =========================================================
@@ -336,11 +340,27 @@ class AskVidhiSetuActivity : AppCompatActivity() {
 
     private fun setupInitialState() {
 
-        binding.aiStatusText.text =
-            "ONLINE • READY"
+        binding.aiStatusText.text = localized(
+            "ONLINE • READY",
+            "ऑनलाइन • तैयार",
+            "ఆన్‌లైన్ • సిద్ధంగా ఉంది"
+        )
 
-        binding.questionProgress.text =
-            "Tell me about your situation"
+        binding.questionProgress.text = localized(
+            "Tell me about your situation",
+            "अपनी स्थिति के बारे में बताइए",
+            "మీ పరిస్థితి గురించి చెప్పండి"
+        )
+        binding.messageInput.hint = localized(
+            "Type your answer...",
+            "अपना उत्तर लिखें...",
+            "మీ సమాధానాన్ని టైప్ చేయండి..."
+        )
+        binding.languageButton.contentDescription = localized(
+            "Change language",
+            "भाषा बदलें",
+            "భాషను మార్చండి"
+        )
 
         binding.messageInput
             .setOnEditorActionListener { _, _, _ ->
@@ -380,18 +400,47 @@ class AskVidhiSetuActivity : AppCompatActivity() {
         }
 
         binding.languageButton.setOnClickListener {
-
-            Toast.makeText(
-                this,
-                "Language selection will be connected later.",
-                Toast.LENGTH_SHORT
-            ).show()
+            showLanguagePicker()
         }
     }
 
     // =========================================================
     // MICROPHONE PERMISSION
     // =========================================================
+
+    private fun localized(english: String, hindi: String, telugu: String): String =
+        AppLanguage.text(caseContext.language, english, hindi, telugu)
+
+    private fun showLanguagePicker() {
+        AppLanguage.showPicker(this) { selected ->
+            caseContext.language = selected
+            aiSpeechController.setLanguage(selected)
+            binding.messageInput.hint = localized(
+                "Type your answer...",
+                "अपना उत्तर लिखें...",
+                "మీ సమాధానాన్ని టైప్ చేయండి..."
+            )
+            binding.languageButton.contentDescription = localized(
+                "Change language",
+                "भाषा बदलें",
+                "భాషను మార్చండి"
+            )
+            binding.questionProgress.text = localized(
+                "Tell me about your situation",
+                "अपनी स्थिति के बारे में बताइए",
+                "మీ పరిస్థితి గురించి చెప్పండి"
+            )
+            Toast.makeText(
+                this,
+                localized(
+                    "Language updated. New questions and speech will use this language.",
+                    "भाषा बदल दी गई है। आगे के प्रश्न और आवाज़ इसी भाषा में होंगे।",
+                    "భాష మార్చబడింది. ఇకపై ప్రశ్నలు మరియు వాయిస్ ఈ భాషలో ఉంటాయి."
+                ),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
 
     private fun requestMicrophonePermission() {
 
@@ -442,7 +491,7 @@ class AskVidhiSetuActivity : AppCompatActivity() {
 
         intent.putExtra(
             RecognizerIntent.EXTRA_LANGUAGE,
-            Locale.getDefault()
+            AppLanguage.locale(caseContext.language).toLanguageTag()
         )
 
         intent.putExtra(
@@ -563,11 +612,17 @@ class AskVidhiSetuActivity : AppCompatActivity() {
 
     private fun askNextQuestion() {
 
-        binding.aiStatusText.text =
-            "PROCESSING • AI"
+        binding.aiStatusText.text = localized(
+            "PROCESSING • AI",
+            "AI प्रक्रिया में है",
+            "AI పని చేస్తోంది"
+        )
 
-        binding.questionProgress.text =
-            "VidhiSetu is thinking..."
+        binding.questionProgress.text = localized(
+            "VidhiSetu is thinking...",
+            "VidhiSetu सोच रहा है...",
+            "VidhiSetu ఆలోచిస్తోంది..."
+        )
 
         lifecycleScope.launch {
 
@@ -585,13 +640,30 @@ class AskVidhiSetuActivity : AppCompatActivity() {
                     return@launch
                 }
 
+                if (result.fallback && !showedFallbackNotice) {
+                    showedFallbackNotice = true
+                    Toast.makeText(
+                        this@AskVidhiSetuActivity,
+                        localized(
+                            "AI is temporarily unavailable. These are basic guided questions, not AI-generated legal advice.",
+                            "AI अस्थायी रूप से उपलब्ध नहीं है। ये सामान्य मार्गदर्शक प्रश्न हैं, AI द्वारा तैयार की गई कानूनी सलाह नहीं।",
+                            "AI తాత్కాలికంగా అందుబాటులో లేదు. ఇవి సాధారణ మార్గదర్శక ప్రశ్నలు మాత్రమే; AI రూపొందించిన చట్టపరమైన సలహా కాదు."
+                        ),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
                 val nextQuestion =
                     result.question
 
                 if (nextQuestion.isNullOrBlank()) {
 
                     showAiError(
-                        "VidhiSetu could not generate the next question."
+                        localized(
+                            "VidhiSetu could not generate the next question.",
+                            "VidhiSetu अगला प्रश्न तैयार नहीं कर पाया।",
+                            "VidhiSetu తదుపరి ప్రశ్నను రూపొందించలేకపోయింది."
+                        )
                     )
 
                     return@launch
@@ -616,8 +688,11 @@ class AskVidhiSetuActivity : AppCompatActivity() {
                     return@launch
                 }
 
-                binding.questionProgress.text =
-                    "Question $currentQuestionNumber of 5"
+                binding.questionProgress.text = localized(
+                    "Question $currentQuestionNumber of 5",
+                    "प्रश्न $currentQuestionNumber / 5",
+                    "ప్రశ్న $currentQuestionNumber / 5"
+                )
 
                 addAIMessage(
                     nextQuestion
@@ -635,7 +710,11 @@ class AskVidhiSetuActivity : AppCompatActivity() {
             } catch (exception: Exception) {
 
                 showAiError(
-                    "I couldn't connect to VidhiSetu AI. Please check that the backend is running."
+                    localized(
+                        "I couldn't connect to VidhiSetu AI. Check your internet connection and try again.",
+                        "VidhiSetu AI से कनेक्ट नहीं हो सका। इंटरनेट कनेक्शन जाँचें और फिर प्रयास करें।",
+                        "VidhiSetu AIకి కనెక్ట్ కాలేకపోయింది. ఇంటర్నెట్ కనెక్షన్‌ను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి."
+                    )
                 )
             }
         }
@@ -649,11 +728,17 @@ class AskVidhiSetuActivity : AppCompatActivity() {
         message: String
     ) {
 
-        binding.aiStatusText.text =
-            "OFFLINE • AI"
+        binding.aiStatusText.text = localized(
+            "OFFLINE • AI",
+            "AI ऑफलाइन है",
+            "AI ఆఫ్‌లైన్‌లో ఉంది"
+        )
 
-        binding.questionProgress.text =
-            "Please try again"
+        binding.questionProgress.text = localized(
+            "Please try again",
+            "कृपया फिर प्रयास करें",
+            "దయచేసి మళ్లీ ప్రయత్నించండి"
+        )
 
         Toast.makeText(
             this,
@@ -668,18 +753,23 @@ class AskVidhiSetuActivity : AppCompatActivity() {
 
     private fun finishQuestionnaire() {
 
-        binding.questionProgress.text =
-            "Information collected"
+        binding.questionProgress.text = localized(
+            "Information collected",
+            "जानकारी एकत्र की गई",
+            "సమాచారం సేకరించబడింది"
+        )
 
-        binding.aiStatusText.text =
-            "ONLINE • READY"
+        binding.aiStatusText.text = localized(
+            "ONLINE • READY",
+            "ऑनलाइन • तैयार",
+            "ఆన్‌లైన్ • సిద్ధంగా ఉంది"
+        )
 
-        val finalMessage =
-            """
-            Thank you. I now have the initial information needed to understand your situation.
-            
-            VidhiSetu will next analyse the information you provided and identify the relevant legal issues before giving you guidance.
-            """.trimIndent()
+        val finalMessage = localized(
+            "Thank you. I have the initial information needed to understand your situation. VidhiSetu will next analyse the information you provided and identify relevant legal issues before offering guidance.",
+            "धन्यवाद। आपकी स्थिति को समझने के लिए शुरुआती जानकारी मिल गई है। VidhiSetu अब मार्गदर्शन देने से पहले आपके विवरण का विश्लेषण करके संबंधित कानूनी मुद्दों की पहचान करेगा।",
+            "ధన్యవాదాలు. మీ పరిస్థితిని అర్థం చేసుకోవడానికి అవసరమైన ప్రాథమిక సమాచారం అందింది. VidhiSetu మార్గదర్శనం ఇవ్వడానికి ముందు మీరు అందించిన సమాచారాన్ని విశ్లేషించి సంబంధిత చట్టపరమైన అంశాలను గుర్తిస్తుంది."
+        )
 
         addAIMessage(
             finalMessage
