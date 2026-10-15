@@ -1,7 +1,7 @@
 """VidhiSetu Flask API.
 
 The civilian endpoint collects an intake through one follow-up question at a time.
-Hindi (hi) and Telugu (te) are supported as response languages.
+English (en), Hindi (hi), and Telugu (te) are supported as response languages.
 """
 
 import json
@@ -22,6 +22,13 @@ MODEL_NAME = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
 ollama_client = Client(host=OLLAMA_HOST)
 
 LANGUAGES = {
+    "en": {
+        "name": "English",
+        "pattern": re.compile(r"[A-Za-z]"),
+        "retry": "Write the entire question naturally in English. Do not use another language.",
+        "error": "The AI could not create a question in English. Please try again.",
+        "service_error": "The AI service is temporarily unavailable. Please try again later.",
+    },
     "hi": {
         "name": "Hindi",
         "pattern": re.compile(r"[\u0900-\u097F]"),
@@ -41,7 +48,48 @@ LANGUAGES = {
 
 def error_message(language: str, field: str) -> str:
     """Return a user-facing error in the requested supported language."""
-    return LANGUAGES.get(language, LANGUAGES["hi"])[field]
+    return LANGUAGES.get(language, LANGUAGES["en"])[field]
+
+
+def fallback_question(case_context: dict, language: str):
+    """Deterministic guided intake if Ollama is unavailable (not AI advice)."""
+    questions = {
+        "en": [
+            ("timeline", "When did this happen, and what happened first?"),
+            ("peopleInvolved", "Who are the people or organisations directly involved?"),
+            ("documents", "Do you have documents, messages, receipts, photographs, or other evidence?"),
+            ("actionsTaken", "Have you already taken any steps to resolve this? What happened?"),
+            ("desiredOutcome", "What outcome are you hoping to achieve?"),
+        ],
+        "hi": [
+            ("timeline", "यह घटना कब हुई और सबसे पहले क्या हुआ?"),
+            ("peopleInvolved", "इस मामले में कौन-से लोग या संस्थाएँ सीधे शामिल हैं?"),
+            ("documents", "क्या आपके पास कोई दस्तावेज़, संदेश, रसीद, तस्वीर या अन्य सबूत हैं?"),
+            ("actionsTaken", "क्या आपने समस्या सुलझाने के लिए पहले कोई कदम उठाया है? क्या हुआ?"),
+            ("desiredOutcome", "आप इस मामले में क्या परिणाम चाहते हैं?"),
+        ],
+        "te": [
+            ("timeline", "ఈ సంఘటన ఎప్పుడు జరిగింది? మొదట ఏమి జరిగింది?"),
+            ("peopleInvolved", "ఈ విషయంలో నేరుగా సంబంధం ఉన్న వ్యక్తులు లేదా సంస్థలు ఎవరు?"),
+            ("documents", "మీ వద్ద పత్రాలు, సందేశాలు, రసీదులు, ఫోటోలు లేదా ఇతర ఆధారాలు ఉన్నాయా?"),
+            ("actionsTaken", "సమస్యను పరిష్కరించడానికి మీరు ఇప్పటికే ఏమైనా చర్యలు తీసుకున్నారా? ఏమైంది?"),
+            ("desiredOutcome", "ఈ విషయంలో మీరు ఎలాంటి ఫలితాన్ని కోరుకుంటున్నారు?"),
+        ],
+    }
+    for field, question in questions[language]:
+        if not case_context.get(field, "").strip():
+            return question
+    return None
+
+
+def fallback_response(case_context: dict, language: str):
+    """Return a clearly marked deterministic question when AI is offline."""
+    question = fallback_question(case_context, language)
+    return jsonify({
+        "complete": question is None,
+        "question": question,
+        "fallback": True,
+    })
 
 
 @app.get("/")
@@ -51,7 +99,7 @@ def home():
         "service": "VidhiSetu AI Backend",
         "ai_provider": "ollama",
         "model": MODEL_NAME,
-        "supported_languages": ["hi", "te"],
+        "supported_languages": ["en", "hi", "te"],
     })
 
 
@@ -69,7 +117,7 @@ def health():
         "ai_provider": "ollama",
         "model": MODEL_NAME,
         "ollama": ollama_status,
-        "supported_languages": ["hi", "te"],
+        "supported_languages": ["en", "hi", "te"],
     })
 
 
@@ -79,10 +127,10 @@ def civilian_question():
     if not isinstance(data, dict):
         return jsonify({"error": "A JSON object is required"}), 400
 
-    language = data.get("language", "hi")
+    language = data.get("language", "en")
     if not isinstance(language, str) or language not in LANGUAGES:
         return jsonify({
-            "error": "language must be 'hi' (Hindi) or 'te' (Telugu)"
+            "error": "language must be 'en' (English), 'hi' (Hindi), or 'te' (Telugu)"
         }), 400
 
     language_config = LANGUAGES[language]
@@ -197,14 +245,14 @@ Return the required JSON object.
         return jsonify({"complete": False, "question": result})
 
     except ResponseError:
-        app.logger.exception("Ollama response error")
-        return jsonify({"error": error_message(language, "service_error")}), 503
+        app.logger.exception("Ollama response error; using guided-intake fallback")
+        return fallback_response(case_context, language)
     except (json.JSONDecodeError, ValueError, KeyError, TypeError):
-        app.logger.exception("Invalid AI response")
-        return jsonify({"error": error_message(language, "error")}), 502
+        app.logger.exception("Invalid AI response; using guided-intake fallback")
+        return fallback_response(case_context, language)
     except Exception:
-        app.logger.exception("Unexpected AI service error")
-        return jsonify({"error": error_message(language, "service_error")}), 503
+        app.logger.exception("Unexpected AI service error; using guided-intake fallback")
+        return fallback_response(case_context, language)
 
 
 @app.get("/api/legal-news")
