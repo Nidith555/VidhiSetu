@@ -86,6 +86,7 @@ def civilian_question():
         }), 400
 
     language_config = LANGUAGES[language]
+    language_name = language_config["name"]
     initial_problem = data.get("initialProblem", "")
     if not isinstance(initial_problem, str) or not initial_problem.strip():
         return jsonify({"error": "initialProblem is required"}), 400
@@ -121,10 +122,10 @@ You are VidhiSetu's civilian legal-intake assistant for India.
 Your task is only to collect facts; do not give legal advice yet.
 
 STRICT RESPONSE LANGUAGE:
-- The selected language is {language_config["name"]} (code: {language}).
-- Write every human-readable response, especially the next question, only in {language_config["name"]}.
+- The selected language is {language_name} (code: {language}).
+- Write every human-readable response, especially the next question, only in {language_name}.
 - Do not switch to English because the input or context uses another language.
-- Keep JSON property names exactly as specified below, but write the value of "question" in {language_config["name"]}.
+- Keep JSON property names exactly as specified below, but write the value of "question" in {language_name}.
 - Ask exactly ONE useful question at a time.
 - Adapt it to the user's situation and avoid repeating facts already provided.
 - Use simple language suitable for ordinary citizens; avoid unnecessary legal terminology.
@@ -135,7 +136,7 @@ STRICT RESPONSE LANGUAGE:
 - Return ONLY valid JSON, with no Markdown or extra text.
 
 If another question is needed:
-{{"complete": false, "question": "one question in {language_config["name"]}"}}
+{{"complete": false, "question": "one question in {language_name}"}}
 
 If enough information has been collected:
 {{"complete": true, "question": null}}
@@ -147,7 +148,7 @@ Information collected so far:
 
 Follow-up questions already answered: {question_count}
 
-Choose the single most useful next question in {language_config["name"]}.
+Choose the single most useful next question in {language_name}.
 Do not repeat known information. This is fact collection only, not legal advice.
 Return the required JSON object.
 """
