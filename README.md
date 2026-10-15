@@ -4,57 +4,45 @@
 
 VidhiSetu is an Android application project intended to make legal information easier to access for citizens, law students, and legal professionals.
 
-## Repository status
+## Current project status
 
-The repository includes the Android Kotlin source, Android manifest, XML layouts, drawable resources, app-level Gradle configuration, and an initial Flask backend snapshot. The Android build configuration is being validated by a GitHub Actions workflow; the APK must not be considered build-verified until that workflow passes.
+The Android project is configured and the debug APK successfully built in GitHub Actions. The Ask VidhiSetu intake now has an English/Hindi/Telugu language selector connected to the backend request, speech recognition, and text-to-speech. The backend accepts those three language codes and provides a clearly marked, deterministic intake fallback if Ollama is unavailable.
 
-## Project structure
+This does **not** mean every static label across every screen is translated, or that the team's full RAG/legal knowledge base and AI-agent orchestration are complete. Those still need implementation and integration.
+
+## Repository structure
 
 ```text
 VidhiSetu/
 ├── android-app/
-│   ├── app/
-│   │   ├── src/main/AndroidManifest.xml
-│   │   ├── src/main/java/com/example/vidhisetu/
-│   │   └── src/main/res/{drawable,layout,values}/
-│   ├── gradle/libs.versions.toml
+│   ├── app/src/main/java/com/example/vidhisetu/
+│   ├── app/src/main/res/{drawable,drawable-nodpi,layout,values}/
+│   ├── app/build.gradle.kts
 │   ├── build.gradle.kts
 │   ├── settings.gradle.kts
-│   └── gradle.properties
+│   └── gradle/libs.versions.toml
 ├── backend/
 │   ├── app.py
 │   ├── legal_news.py
 │   ├── requirements.txt
-│   └── README.md
+│   └── tests/test_app.py
 └── .github/workflows/
-    ├── backend-check.yml
-    └── android-build.yml
 ```
 
-## Build the Android app
+## Build and download
 
-Open the **android-app** directory in Android Studio (not the repository root). Install Android SDK Platform 35 if prompted, then allow Gradle sync to finish. The CI workflow builds the debug APK using Gradle 8.11.1 and JDK 17 and publishes it as a downloadable workflow artifact if the build succeeds.
+The latest successful Android build workflow is available here:
 
-The standard Gradle wrapper launch scripts are present. If Android Studio reports a missing wrapper JAR, use Android Studio's Gradle distribution setting or report the error so the missing wrapper component can be restored.
+[Open Android build workflow](https://github.com/Nidith555/VidhiSetu/actions)
 
-## Backend
+The `vidhisetu-debug-apk` artifact contains `app-debug.apk`. GitHub Actions artifacts expire after the configured retention period; the local APK from the verified run is available in this conversation if needed.
 
-The initial Flask backend provides:
+To build locally, open the **android-app** directory in Android Studio, install Android SDK Platform 35 if prompted, and allow Gradle sync to finish.
 
-- `GET /` — service status and supported language codes.
-- `GET /api/health` — API and Ollama availability check.
-- `POST /api/civilian/question` — legal-intake follow-up questions with Hindi (`hi`) or Telugu (`te`) response-language instructions and a basic script check.
-- `GET /api/legal-news` — a news feed based on PIB RSS and Supreme Court of India updates.
+## Backend and AI availability
 
-See [backend/README.md](backend/README.md) for setup and limitations. A hosted Flask service cannot reach Ollama running only on a developer's laptop; the deployed backend needs an AI service reachable from its hosting environment.
+The deployed API source is maintained in the private repository [Nidith555/vidhisetu-backend](https://github.com/Nidith555/vidhisetu-backend). A cloud-hosted Flask process cannot access Ollama running only on a developer's laptop. Configure an Ollama service reachable from the deployed backend to enable model-generated questions. Without it, the server uses a labelled deterministic guided questionnaire to collect facts; this is not an AI-generated response or legal advice.
 
-## Not yet complete or verified
+## Security and legal safety
 
-- A successful Android build and device/emulator test are still required.
-- The AI-agent orchestration and full RAG/legal corpus implementation must be integrated from the team's actual source.
-- Complete Hindi/Telugu UI localization and language-aware speech behaviour are not finished.
-- AI-generated legal information can be incomplete or wrong; statutory text and citations need verification against official sources.
-
-## Security
-
-Never commit API keys, passwords, access tokens, Firebase service-account files, keystores, `google-services.json`, `local.properties`, real user case records, or personal information.
+Never commit API keys, passwords, tokens, Firebase service-account files, keystores, `google-services.json`, or `local.properties`. Keep real personal legal records out of public commits. Verify statutes and citations against official sources and consult a qualified lawyer for case-specific advice.

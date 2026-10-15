@@ -1,4 +1,4 @@
-name: Backend syntax check
+name: Backend syntax and API tests
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
       - ".github/workflows/backend-check.yml"
 
 jobs:
-  syntax:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -27,3 +27,7 @@ jobs:
 
       - name: Compile Python source
         run: python -m compileall -q backend
+
+      - name: Run backend endpoint tests
+        working-directory: backend
+        run: python -m unittest discover -s tests -v

@@ -1,23 +1,19 @@
 # VidhiSetu Flask Backend
 
-This directory contains the Flask API currently available from the existing VidhiSetu backend source.
+This directory is the backend source snapshot for VidhiSetu. The Render deployment source is maintained in the private repository [Nidith555/vidhisetu-backend](https://github.com/Nidith555/vidhisetu-backend).
 
-## Features in this initial snapshot
+## Endpoints
 
-- `GET /` — service status and supported language codes.
-- `GET /api/health` — checks API and Ollama availability.
-- `POST /api/civilian/question` — civilian legal-intake follow-up question generation. The endpoint asks one question at a time and accepts Hindi (`hi`) or Telugu (`te`) as the selected response language.
-- `GET /api/legal-news` — legal updates aggregated from the Press Information Bureau RSS feed and the Supreme Court of India website.
+- `GET /` — service status and supported languages.
+- `GET /api/health` — Flask API and Ollama availability.
+- `POST /api/civilian/question` — one fact-gathering follow-up question at a time.
+- `GET /api/legal-news` — legal updates aggregated from PIB RSS and Supreme Court of India updates.
 
-## Requirements
-
-- Python 3.10+
-- Ollama reachable from the backend
-- The model specified by `OLLAMA_MODEL` pulled into that Ollama instance (defaults to `llama3.2:3b`)
+The civilian intake supports **English (`en`), Hindi (`hi`), and Telugu (`te`)**. The Android app sends the selected language with each question request.
 
 ## Run locally
 
-From this directory:
+Requires Python 3.10+ and the dependencies in `requirements.txt`.
 
 ```bash
 python -m venv .venv
@@ -25,27 +21,20 @@ python -m venv .venv
 .venv\Scripts\Activate.ps1
 # macOS/Linux:
 # source .venv/bin/activate
-
 pip install -r requirements.txt
-```
-
-Configure environment variables as needed:
-
-- `OLLAMA_HOST` — defaults to `http://127.0.0.1:11434`
-- `OLLAMA_MODEL` — defaults to `llama3.2:3b`
-- `PORT` — defaults to `5000`
-
-Start the service:
-
-```bash
 python app.py
 ```
 
-For a production WSGI server, use:
+Configuration:
+- `OLLAMA_HOST` — defaults to `http://127.0.0.1:11434`.
+- `OLLAMA_MODEL` — defaults to `llama3.2:3b`.
+- `PORT` — defaults to `5000`.
 
-```bash
-gunicorn app:app
-```
+## AI availability and fallback
+
+When Ollama responds correctly, the API requests one adaptive question from the model. If Ollama is unavailable or returns an invalid response, the endpoint returns a deterministic, localized guided-intake question with `"fallback": true`. This keeps the fact-collection flow usable while clearly identifying that the question was not AI-generated. The fallback is **not legal advice** and does not use the team's RAG system.
+
+A hosted Flask server cannot reach Ollama running only on a developer's laptop. To enable model-generated questions in deployment, configure `OLLAMA_HOST` to an Ollama service reachable from the deployed server and ensure `OLLAMA_MODEL` is installed there.
 
 ## Example request
 
@@ -62,16 +51,10 @@ gunicorn app:app
 }
 ```
 
-Set `language` to `hi` for Hindi or `te` for Telugu. The backend prompt and a basic selected-script check are intended to reduce accidental language switching; the script check is not a complete language-quality validator.
+The script check helps catch obvious language switching; it is not a complete language-identification or translation-quality guarantee.
 
-## Deployment note
+## Limitations
 
-A hosted Flask server does not automatically have access to Ollama running on a developer's laptop. Set `OLLAMA_HOST` to an Ollama service reachable from the deployment, or configure another supported AI provider before expecting the AI endpoint to work in the cloud. The root health/status endpoint alone does not prove that AI generation works.
-
-## Current limitations
-
-- This is an initial API snapshot, not the complete VidhiSetu application.
-- Hindi/Telugu support is currently applied to civilian intake follow-up questions only; other AI features must pass and enforce the language too.
-- Android app source, AI-agent implementation, and the complete RAG implementation have not yet been added to this repository.
-- Legal news scraping can return fewer results when upstream sites change their markup or are unavailable. Review outputs before relying on them.
-- This project provides informational assistance and must not be represented as a substitute for advice from a qualified lawyer.
+- The RAG/legal corpus and AI-agent orchestration have not been merged into this snapshot; they remain with the relevant teammates.
+- Legal news scraping may return fewer results if upstream sites are unavailable or change markup.
+- Verify statutory text and citations against official sources. VidhiSetu is informational and is not a substitute for a qualified lawyer.
