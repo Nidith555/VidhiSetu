@@ -240,7 +240,8 @@ Return the required JSON object.
                 break
 
         if result is None:
-            return jsonify({"error": error_message(language, "error")}), 502
+            app.logger.warning("AI response did not satisfy the selected language; using guided-intake fallback")
+            return fallback_response(case_context, language)
 
         return jsonify({"complete": False, "question": result})
 
