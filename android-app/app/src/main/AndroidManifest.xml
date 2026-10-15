@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ========================= -->
+    <!-- PERMISSIONS               -->
+    <!-- ========================= -->
+
+    <!-- Internet for backend / legal resources -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Voice input -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- Document scanning / camera -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+
+    <!-- ========================= -->
+    <!-- APPLICATION                -->
+    <!-- ========================= -->
+
+    <application
+        android:allowBackup="true"
+        android:label="VidhiSetu"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/Theme.Vidhisetu">
+
+
+        <!-- ========================= -->
+        <!-- MAIN / CITIZEN HOME       -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:exported="true">
+
+            <intent-filter>
+
+                <action
+                    android:name="android.intent.action.MAIN" />
+
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+
+        </activity>
+
+
+        <!-- ========================= -->
+        <!-- ASK VIDHISETU              -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".AskVidhiSetuActivity"
+            android:screenOrientation="sensor"
+            android:exported="false" />
+
+
+        <!-- ========================= -->
+        <!-- SCAN & EXPLAIN             -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".ScanExplainActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+
+        <!-- ========================= -->
+        <!-- KNOW MY RIGHTS             -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".KnowMyRightsActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+
+        <!-- ========================= -->
+        <!-- RIGHT INFORMATION          -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".RightInformationActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+
+        <!-- ========================= -->
+        <!-- GET LEGAL HELP             -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".GetLegalHelpActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+
+        <!-- ========================= -->
+        <!-- SERVICES                   -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".ServicesActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+
+        <!-- ========================= -->
+        <!-- FIND RELEVANT LAWS         -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".RelevantLawsActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+
+        <!-- ========================= -->
+        <!-- LAW DETAILS                -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".LawDetailsActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+
+        <!-- ========================= -->
+        <!-- DOCUMENT DRAFTING          -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".DocumentTemplatesActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+
+        <!-- ========================= -->
+        <!-- CASE MANAGEMENT            -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".CaseManagementActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+
+        <!-- ========================= -->
+        <!-- RESOURCES                  -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".ResourcesActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".LegalNewsActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+
+
+        <!-- ========================= -->
+        <!-- PROFILE                   -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".ProfileActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+
+        <!-- ========================= -->
+        <!-- APPEARANCE                -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".AppearanceActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+
+        <!-- ========================= -->
+        <!-- STUDENT PORTAL             -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".StudentHomeActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".StudentPracticeActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".StudentCaseLibraryActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".CasePreparationActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".ArgumentPerformanceActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".CompletedCasesActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".SimulationLabsActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".MootCourtSimulationActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".CourtroomSimulationActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".CaseAnalysisLabActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".JudgmentAnalysisLabActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+
+
+
+
+        <!-- ========================= -->
+        <!-- LAWYER PORTAL              -->
+        <!-- ========================= -->
+
+        <activity
+            android:name=".LawyerHomeActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".LawyerDocumentsActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <activity
+            android:name=".LawyerCaseResearchActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <activity
+            android:name=".CitationVerificationActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <activity
+            android:name=".DraftReviewActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <activity
+            android:name=".PendingWorkActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

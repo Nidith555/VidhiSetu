@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="vs_background">#F7F4EC</color>
+    <color name="vs_card">#FFFFFF</color>
+    <color name="vs_navy">#071D32</color>
+    <color name="vs_primary_text">#071D32</color>
+    <color name="vs_secondary_text">#6E7780</color>
+    <color name="vs_border">#E5E0D6</color>
+    <color name="vs_gold">#F4C24F</color>
+    <color name="vs_icon_background">#FFF4D6</color>
+    <color name="vs_nav_inactive">#D0D9E2</color>
+</resources>
