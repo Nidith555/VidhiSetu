@@ -998,3 +998,24 @@
             <!-- ================================================= -->
             <!-- LOG OUT -->
             <!-- ================================================= -->
+            <TextView
+                android:id="@+id/logoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/profile_option_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="Log Out"
+                android:textColor="#B3261E"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
