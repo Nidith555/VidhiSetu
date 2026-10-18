@@ -18,7 +18,10 @@ data class CaseContext(
 
     var questionCount: Int = 0,
 
-    var language: String = "en"
+    var language: String = "en",
+
+    // Role-specific RAG policy; callers may pass "civilian", "student", or "lawyer".
+    var role: String = "civilian"
 ) {
 
     fun buildSummary(): String {

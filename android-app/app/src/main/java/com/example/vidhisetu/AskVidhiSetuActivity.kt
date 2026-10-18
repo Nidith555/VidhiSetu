@@ -53,6 +53,10 @@ class AskVidhiSetuActivity : AppCompatActivity() {
     private val aiQuestionPlanner =
         FlaskAiQuestionPlanner()
 
+    private val legalRagClient = LegalRagClient()
+    private var isLegalAnswerLoading = false
+    private var legalAnswerCompleted = false
+
     private var currentQuestionNumber = 0
     private var showedFallbackNotice = false
 
@@ -101,6 +105,10 @@ class AskVidhiSetuActivity : AppCompatActivity() {
         )
 
         caseContext.language = AppLanguage.getCode(this)
+        caseContext.role = intent.getStringExtra("role")
+            ?.lowercase(java.util.Locale.ROOT)
+            ?.takeIf { it in setOf("civilian", "student", "lawyer") }
+            ?: "civilian"
 
         setupSpeech()
 
@@ -760,40 +768,222 @@ class AskVidhiSetuActivity : AppCompatActivity() {
         )
 
         binding.aiStatusText.text = localized(
-            "ONLINE • READY",
-            "ऑनलाइन • तैयार",
-            "ఆన్‌లైన్ • సిద్ధంగా ఉంది"
+            "SEARCHING LEGAL SOURCES",
+            "कानूनी स्रोत खोजे जा रहे हैं",
+            "చట్టపరమైన మూలాలను శోధిస్తోంది"
         )
 
         val finalMessage = localized(
-            "Thank you. I have the initial information needed to understand your situation. VidhiSetu will next analyse the information you provided and identify relevant legal issues before offering guidance.",
-            "धन्यवाद। आपकी स्थिति को समझने के लिए शुरुआती जानकारी मिल गई है। VidhiSetu अब मार्गदर्शन देने से पहले आपके विवरण का विश्लेषण करके संबंधित कानूनी मुद्दों की पहचान करेगा।",
-            "ధన్యవాదాలు. మీ పరిస్థితిని అర్థం చేసుకోవడానికి అవసరమైన ప్రాథమిక సమాచారం అందింది. VidhiSetu మార్గదర్శనం ఇవ్వడానికి ముందు మీరు అందించిన సమాచారాన్ని విశ్లేషించి సంబంధిత చట్టపరమైన అంశాలను గుర్తిస్తుంది."
+            "Thank you. I have collected the initial facts. I will now search the available legal sources. I will show the retrieved provisions and citations so you can verify them.",
+            "धन्यवाद। शुरुआती तथ्य एकत्र कर लिए गए हैं। अब उपलब्ध कानूनी स्रोत खोजे जाएँगे। आपको संबंधित प्रावधान और उद्धरण दिखाए जाएँगे ताकि आप उनकी जाँच कर सकें।",
+            "ధన్యవాదాలు. ప్రాథమిక వివరాలు సేకరించబడ్డాయి. ఇప్పుడు అందుబాటులో ఉన్న చట్టపరమైన మూలాలను శోధిస్తాను. మీరు ధృవీకరించడానికి సంబంధిత నిబంధనలు మరియు సూచనలను చూపిస్తాను."
         )
 
-        addAIMessage(
-            finalMessage
+        addAIMessage(finalMessage)
+        aiSpeechController.speak(finalMessage)
+        requestLegalGuidance()
+    }
+
+    private fun requestLegalGuidance() {
+        if (isLegalAnswerLoading || legalAnswerCompleted) return
+
+        isLegalAnswerLoading = true
+        binding.aiStatusText.text = localized(
+            "SEARCHING LEGAL SOURCES",
+            "कानूनी स्रोत खोजे जा रहे हैं",
+            "చట్టపరమైన మూలాలను శోధిస్తోంది"
+        )
+        binding.questionProgress.text = localized(
+            "Retrieving relevant statutes and citations…",
+            "संबंधित कानून और उद्धरण खोजे जा रहे हैं…",
+            "సంబంధిత చట్టాలు మరియు సూచనలను సేకరిస్తోంది…"
         )
 
-        aiSpeechController.speak(
-            finalMessage
+        lifecycleScope.launch {
+            try {
+                val result = legalRagClient.getLegalAnswer(caseContext)
+
+                val heading = if (result.status == "INSUFFICIENT_EVIDENCE") {
+                    localized(
+                        "Insufficient matching legal evidence was found",
+                        "पर्याप्त संबंधित कानूनी प्रमाण नहीं मिला",
+                        "సరిపడే సంబంధిత చట్టపరమైన ఆధారాలు లభించలేదు"
+                    )
+                } else {
+                    localized(
+                        "Legal information from retrieved sources",
+                        "प्राप्त कानूनी स्रोतों से जानकारी",
+                        "సేకరించిన చట్టపరమైన మూలాల నుండి సమాచారం"
+                    )
+                }
+
+                val answerText = buildString {
+                    append(heading)
+                    append("\n\n")
+                    append(result.answer)
+                    if (result.takeaways.isNotEmpty()) {
+                        append("\n\n")
+                        append(
+                            localized(
+                                "Key points",
+                                "मुख्य बिंदु",
+                                "ముఖ్యమైన అంశాలు"
+                            )
+                        )
+                        result.takeaways.forEach { item ->
+                            append("\n• ")
+                            append(item)
+                        }
+                    }
+                    if (result.disclaimer.isNotBlank()) {
+                        append("\n\n")
+                        append(result.disclaimer)
+                    }
+                }
+
+                val answerMatchesUiLanguage =
+                    result.answerLanguage.equals(caseContext.language, ignoreCase = true)
+
+                addAIMessage(answerText, enableListen = answerMatchesUiLanguage)
+                if (answerMatchesUiLanguage) {
+                    aiSpeechController.speak(answerText)
+                }
+
+                if (result.languageNotice.isNotBlank()) {
+                    addAIMessage(result.languageNotice)
+                    aiSpeechController.speak(result.languageNotice)
+                }
+
+                val sourceText = buildLegalSourceText(result)
+                if (sourceText.isNotBlank()) {
+                    // Statutory excerpts are shown exactly as returned by RAG and are not spoken
+                    // automatically because the excerpts may be long.
+                    addAIMessage(sourceText, enableListen = false)
+                }
+
+                binding.aiStatusText.text = localized(
+                    "LEGAL SOURCES RETRIEVED",
+                    "कानूनी स्रोत प्राप्त हुए",
+                    "చట్టపరమైన మూలాలు లభించాయి"
+                )
+                binding.questionProgress.text = localized(
+                    "Review the answer and verify the cited provisions",
+                    "उत्तर पढ़ें और उद्धृत प्रावधानों की जाँच करें",
+                    "సమాధానాన్ని పరిశీలించి పేర్కొన్న నిబంధనలను ధృవీకరించండి"
+                )
+                legalAnswerCompleted = true
+            } catch (error: LegalRagApiException) {
+                showLegalRagFailure(error.ragStatus)
+            } catch (_: Exception) {
+                showLegalRagFailure(null)
+            } finally {
+                isLegalAnswerLoading = false
+            }
+        }
+    }
+
+    private fun buildLegalSourceText(result: LegalRagResult): String {
+        val sections = mutableListOf<String>()
+
+        if (result.citations.isNotEmpty()) {
+            sections += buildString {
+                append(localized("Citations", "कानूनी उद्धरण", "చట్టపరమైన సూచనలు"))
+                result.citations.forEach { citation ->
+                    append("\n• ")
+                    append(citation)
+                }
+            }
+        }
+
+        if (result.passages.isNotEmpty()) {
+            sections += buildString {
+                append(
+                    localized(
+                        "Retrieved statutory passages",
+                        "प्राप्त वैधानिक अंश",
+                        "సేకరించిన చట్టంలోని భాగాలు"
+                    )
+                )
+                result.passages.forEachIndexed { index, passage ->
+                    append("\n\n")
+                    append(index + 1)
+                    append(". ")
+                    append(passage.act)
+                    if (passage.sectionNumber.isNotBlank()) {
+                        append(" — Section/Article ")
+                        append(passage.sectionNumber)
+                    }
+                    if (passage.sectionTitle.isNotBlank()) {
+                        append(": ")
+                        append(passage.sectionTitle)
+                    }
+                    val pages = when {
+                        passage.pageStart != null && passage.pageEnd != null &&
+                            passage.pageStart != passage.pageEnd ->
+                            " (pages ${passage.pageStart}–${passage.pageEnd})"
+                        passage.pageStart != null -> " (page ${passage.pageStart})"
+                        else -> ""
+                    }
+                    if (passage.source.isNotBlank()) {
+                        append("\nSource: ")
+                        append(passage.source)
+                        append(pages)
+                    }
+                    if (passage.text.isNotBlank()) {
+                        append("\n")
+                        append(passage.text)
+                    }
+                }
+            }
+        }
+
+        return sections.joinToString("\n\n")
+    }
+
+    private fun showLegalRagFailure(ragStatus: String?) {
+        binding.aiStatusText.text = localized(
+            "LEGAL RETRIEVAL UNAVAILABLE",
+            "कानूनी खोज उपलब्ध नहीं है",
+            "చట్టపరమైన శోధన అందుబాటులో లేదు"
+        )
+        binding.questionProgress.text = localized(
+            "Tap retry after the retrieval service is connected",
+            "खोज सेवा कनेक्ट होने के बाद फिर प्रयास करें",
+            "రిట్రీవల్ సేవను కనెక్ట్ చేసిన తర్వాత మళ్లీ ప్రయత్నించండి"
         )
 
-        /*
-         * Future Phase:
-         *
-         * CaseContext
-         *      ↓
-         * Legal Issue Classification
-         *      ↓
-         * RAG
-         *      ↓
-         * Verified Legal Sources
-         *      ↓
-         * Legal Reasoning
-         *      ↓
-         * Final Legal Guidance
-         */
+        val message = when (ragStatus) {
+            "not_configured" -> localized(
+                "The backend has not been connected to the RAG service yet. Set VIDHISETU_RAG_URL on the hosted Flask backend, then retry.",
+                "बैकएंड अभी RAG सेवा से जुड़ा नहीं है। होस्ट किए गए Flask बैकएंड में VIDHISETU_RAG_URL सेट करें, फिर दोबारा प्रयास करें।",
+                "బ్యాకెండ్ ఇంకా RAG సేవకు కనెక్ట్ కాలేదు. హోస్ట్ చేసిన Flask బ్యాకెండ్‌లో VIDHISETU_RAG_URL సెట్ చేసి మళ్లీ ప్రయత్నించండి."
+            )
+            "not_ready", "timeout", "unreachable", "upstream_error", "invalid_response" -> localized(
+                "The legal retrieval service is not ready or could not respond. Please retry shortly.",
+                "कानूनी खोज सेवा तैयार नहीं है या उत्तर नहीं दे सकी। कृपया थोड़ी देर बाद पुनः प्रयास करें।",
+                "చట్టపరమైన శోధన సేవ సిద్ధంగా లేదు లేదా స్పందించలేకపోయింది. కొద్దిసేపటి తర్వాత మళ్లీ ప్రయత్నించండి."
+            )
+            else -> localized(
+                "I could not reach the legal retrieval service. Check your internet connection and retry.",
+                "कानूनी खोज सेवा से संपर्क नहीं हो सका। इंटरनेट कनेक्शन जाँचें और फिर प्रयास करें।",
+                "చట్టపరమైన శోధన సేవను చేరుకోలేకపోయాను. ఇంటర్నెట్ కనెక్షన్‌ను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి."
+            )
+        }
+
+        addAIMessage(message)
+        aiSpeechController.speak(message)
+
+        val retry = TextView(this).apply {
+            text = localized("↻ Retry legal search", "↻ कानूनी खोज फिर से करें", "↻ చట్టపరమైన శోధనను మళ్లీ ప్రయత్నించండి")
+            setTextColor(Color.rgb(244, 194, 79))
+            textSize = 14f
+            setPadding(12, 10, 12, 10)
+            isClickable = true
+            isFocusable = true
+            setOnClickListener { requestLegalGuidance() }
+        }
+        binding.conversationContainer.addView(retry)
+        scrollToBottom()
     }
 
     // =========================================================
@@ -887,7 +1077,8 @@ class AskVidhiSetuActivity : AppCompatActivity() {
     // =========================================================
 
     private fun addAIMessage(
-        message: String
+        message: String,
+        enableListen: Boolean = true
     ) {
 
         val outerContainer =
@@ -965,40 +1156,17 @@ class AskVidhiSetuActivity : AppCompatActivity() {
             messageView
         )
 
-        val listenButton =
-            TextView(this)
-
-        listenButton.text =
-            "🔊  Listen"
-
-        listenButton.setTextColor(
-            Color.rgb(
-                244,
-                194,
-                79
-            )
-        )
-
-        listenButton.textSize =
-            11f
-
-        listenButton.setPadding(
-            5,
-            8,
-            5,
-            5
-        )
-
-        listenButton.setOnClickListener {
-
-            aiSpeechController.speak(
-                message
-            )
+        if (enableListen) {
+            val listenButton = TextView(this)
+            listenButton.text = "🔊  Listen"
+            listenButton.setTextColor(Color.rgb(244, 194, 79))
+            listenButton.textSize = 11f
+            listenButton.setPadding(5, 8, 5, 5)
+            listenButton.setOnClickListener {
+                aiSpeechController.speak(message)
+            }
+            outerContainer.addView(listenButton)
         }
-
-        outerContainer.addView(
-            listenButton
-        )
 
         binding.conversationContainer
             .addView(
