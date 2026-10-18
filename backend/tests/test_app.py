@@ -82,3 +82,86 @@ class CivilianQuestionEndpointTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class LegalRagProxyTests(unittest.TestCase):
+    def setUp(self):
+        app.config["TESTING"] = True
+        self.client = app.test_client()
+
+    def payload(self, **overrides):
+        data = {
+            "language": "en",
+            "role": "civilian",
+            "initialProblem": "My landlord changed the lock",
+            "timeline": "Yesterday",
+            "peopleInvolved": "My landlord and me",
+            "documents": "Rental agreement",
+            "actionsTaken": "",
+            "desiredOutcome": "Recover access",
+            "additionalDetails": "",
+            "top_k": 3,
+        }
+        data.update(overrides)
+        return data
+
+    def test_requires_valid_language_and_role(self):
+        response = self.client.post(
+            "/api/legal/answer", json=self.payload(language="fr")
+        )
+        self.assertEqual(response.status_code, 400)
+        response = self.client.post(
+            "/api/legal/answer", json=self.payload(role="admin")
+        )
+        self.assertEqual(response.status_code, 400)
+
+    def test_reports_unconfigured_rag_without_fabricating_answer(self):
+        with patch("app.RAG_API_URL", ""):
+            response = self.client.post("/api/legal/answer", json=self.payload())
+        self.assertEqual(response.status_code, 503)
+        body = response.get_json()
+        self.assertEqual(body["rag_status"], "not_configured")
+        self.assertNotIn("answer", body)
+
+    @patch("app.requests.post")
+    def test_forwards_case_facts_and_normalises_citations(self, mock_post):
+        with patch("app.RAG_API_URL", "https://rag.example"):
+            mock_post.return_value.status_code = 200
+            mock_post.return_value.json.return_value = {
+                "status": "SUCCESS",
+                "query": "some query",
+                "simplified_explanation": "Grounded explanation",
+                "key_takeaways": ["Section 1"],
+                "disclaimer": "Educational information only.",
+                "citations": ["Example Act, Section 1"],
+                "supporting_passages": [{
+                    "chunk_id": "chunk-1",
+                    "act": "Example Act",
+                    "section_number": 1,
+                    "section_title": "Example",
+                    "page_start": 3,
+                    "page_end": 3,
+                    "source": "data/act.pdf",
+                    "text": "Verbatim provision",
+                }],
+            }
+            response = self.client.post("/api/legal/answer", json=self.payload())
+
+        self.assertEqual(response.status_code, 200)
+        body = response.get_json()
+        self.assertEqual(body["answer"], "Grounded explanation")
+        self.assertEqual(body["citations"], ["Example Act, Section 1"])
+        self.assertEqual(body["passages"][0]["text"], "Verbatim provision")
+        self.assertIn("Initial situation", mock_post.call_args.kwargs["json"]["query"])
+        self.assertTrue(mock_post.call_args.args[0].endswith("/api/v1/civilian/ask"))
+
+    @patch("app.requests.post")
+    def test_upstream_timeout_is_reported_as_gateway_timeout(self, mock_post):
+        import requests
+        mock_post.side_effect = requests.Timeout("timed out")
+        with patch("app.RAG_API_URL", "https://rag.example"):
+            response = self.client.post("/api/legal/answer", json=self.payload())
+        self.assertEqual(response.status_code, 504)
+        self.assertEqual(response.get_json()["rag_status"], "timeout")
+
+
