@@ -54,6 +54,7 @@ data class LegalDraftResult(
     val draft: String,
     val missingInformation: List<String>,
     val questions: List<String>,
+    val verifiedCitations: List<String>,
     val warning: String,
     val message: String
 )
@@ -192,8 +193,8 @@ class DocumentAnalysisClient {
                 escalationRequired = escalation?.optBoolean("escalation_required", false) ?: false,
                 escalationReason = escalation?.optString("reason", "").orEmpty(),
                 recommendedAction = escalation?.optString("recommended_action", "").orEmpty(),
-                languageNotice = legal?.optString("language_notice", "")
-                    ?.ifBlank { translation?.optString("warning", "") }.orEmpty(),
+                languageNotice = legal?.optString("language_notice", "").orEmpty()
+                    .ifBlank { translation?.optString("warning", "").orEmpty() },
                 legalError = legalError
             )
         } finally {
@@ -259,6 +260,7 @@ class LegalDraftClient {
                 draft = json.optString("draft", "").trim(),
                 missingInformation = json.optJSONArray("missing_information").readStrings(),
                 questions = json.optJSONArray("questions").readStrings(),
+                verifiedCitations = json.optJSONArray("verified_citations").readStrings(),
                 warning = json.optString("warning", "").trim(),
                 message = json.optString("message", "").trim()
             )
