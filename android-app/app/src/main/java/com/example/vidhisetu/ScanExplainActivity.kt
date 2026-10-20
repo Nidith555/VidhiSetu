@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.ContentResolver
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
@@ -12,6 +14,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import com.example.vidhisetu.databinding.ActivityScanExplainBinding
 
 class ScanExplainActivity : AppCompatActivity() {
@@ -22,6 +26,7 @@ class ScanExplainActivity : AppCompatActivity() {
 
     // Selected file
     private var selectedFileUri: Uri? = null
+    private var isAnalyzing = false
 
     // Camera image
     private var capturedBitmap: Bitmap? = null
@@ -231,13 +236,7 @@ class ScanExplainActivity : AppCompatActivity() {
         try {
 
             filePickerLauncher.launch(
-                arrayOf(
-                    "image/*",
-                    "application/pdf",
-                    "text/plain",
-                    "application/msword",
-                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                )
+                arrayOf("application/pdf", "image/png", "image/jpeg")
             )
 
         } catch (exception: Exception) {
@@ -417,80 +416,152 @@ class ScanExplainActivity : AppCompatActivity() {
     // =========================================================
 
     private fun explainDocument() {
+        if (isAnalyzing) return
 
-        val hasCameraDocument =
-            capturedBitmap != null
-
-        val hasFile =
-            selectedFileUri != null
-
-        if (!hasCameraDocument && !hasFile) {
-
-            Toast.makeText(
-                this,
-                "Please capture or select a document first.",
-                Toast.LENGTH_SHORT
-            ).show()
-
+        val uri = selectedFileUri
+        val bitmap = capturedBitmap
+        if (uri == null && bitmap == null) {
+            Toast.makeText(this, "Please capture or select a document first.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        binding.explanationProgress.visibility =
-            View.VISIBLE
+        isAnalyzing = true
+        binding.explanationProgress.visibility = View.VISIBLE
+        binding.explainButton.isEnabled = false
+        binding.explanationText.text = "Uploading the document securely for analysis..."
 
-        binding.explainButton.isEnabled =
-            false
+        lifecycleScope.launch {
+            try {
+                val fileName: String
+                val mimeType: String
+                val content: ByteArray
 
-        binding.explanationText.text =
-            "Reading your document..."
+                if (bitmap != null) {
+                    fileName = "camera-scan.jpg"
+                    mimeType = "image/jpeg"
+                    content = ByteArrayOutputStream().use { output ->
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 88, output)
+                        output.toByteArray()
+                    }
+                } else {
+                    val selectedUri = uri ?: error("No document was selected.")
+                    fileName = getFileName(contentResolver, selectedUri)
+                    val resolvedMime = contentResolver.getType(selectedUri).orEmpty()
+                    mimeType = resolvedMime.takeIf { it.isNotBlank() && it != "application/octet-stream" }
+                        ?: mimeTypeFor(fileName)
+                    content = contentResolver.openInputStream(selectedUri)?.use { input ->
+                        readLimited(input)
+                    } ?: error("The selected document could not be opened.")
+                }
 
-        /*
-         * TEMPORARY AI DEMO
-         *
-         * Actual document analysis will later be:
-         *
-         * Camera/File
-         *      ↓
-         * OCR / Document extraction
-         *      ↓
-         * Legal document analysis
-         *      ↓
-         * Verified legal explanation
-         *      ↓
-         * Text + TTS
-         */
+                val result = DocumentAnalysisClient().analyze(
+                    fileName = fileName,
+                    mimeType = mimeType,
+                    content = content,
+                    language = AppLanguage.getCode(this@ScanExplainActivity)
+                )
+                currentExplanation = buildExplanation(result)
+                binding.explanationText.text = currentExplanation
+                binding.documentStatusText.text = "Analysis complete: " + fileName
+                if (result.legalAnswer.isNotBlank()) {
+                    aiSpeechController.speak(result.legalAnswer)
+                }
+            } catch (exception: Exception) {
+                currentExplanation = exception.message ?: "The document could not be analyzed. Please try again."
+                binding.explanationText.text = currentExplanation
+                binding.documentStatusText.text = "Document analysis unavailable"
+                Toast.makeText(this@ScanExplainActivity, currentExplanation, Toast.LENGTH_LONG).show()
+            } finally {
+                isAnalyzing = false
+                binding.explanationProgress.visibility = View.GONE
+                binding.explainButton.isEnabled = true
+            }
+        }
+    }
 
-        binding.explanationProgress.postDelayed({
+    private fun readLimited(input: InputStream): ByteArray {
+        val output = ByteArrayOutputStream()
+        val buffer = ByteArray(8 * 1024)
+        var total = 0
+        while (true) {
+            val count = input.read(buffer)
+            if (count < 0) break
+            total += count
+            require(total <= BackendApiSettings.MAX_UPLOAD_BYTES) {
+                "The document is larger than the 10 MB upload limit."
+            }
+            output.write(buffer, 0, count)
+        }
+        return output.toByteArray()
+    }
 
-            binding.explanationProgress.visibility =
-                View.GONE
+    private fun mimeTypeFor(fileName: String): String = when (fileName.substringAfterLast('.', "").lowercase()) {
+        "pdf" -> "application/pdf"
+        "png" -> "image/png"
+        "jpg", "jpeg" -> "image/jpeg"
+        else -> "application/octet-stream"
+    }
 
-            binding.explainButton.isEnabled =
-                true
-
-            currentExplanation =
-                """
-                Your document has been received successfully.
-
-                VidhiSetu will analyse the document and explain its important information in simple language.
-
-                The analysis can identify important dates, names, amounts, responsibilities, conditions, and other relevant information.
-
-                The actual document-analysis AI will be connected in the next development phase.
-
-                This information is for understanding the document and is not a substitute for professional legal advice.
-                """.trimIndent()
-
-            // Display explanation
-            binding.explanationText.text =
-                currentExplanation
-
-            // Speak exactly the same explanation
-            aiSpeechController.speak(
-                currentExplanation
-            )
-
-        }, 1000)
+    private fun buildExplanation(result: DocumentAgentResult): String = buildString {
+        append("Document type: ")
+        append(result.documentType.replace('_', ' '))
+        if (result.summary.isNotBlank()) {
+            append("\n\nSummary\n")
+            append(result.summary)
+        }
+        if (result.parties.isNotEmpty()) {
+            append("\n\nParties mentioned\n• ")
+            append(result.parties.joinToString("\n• "))
+        }
+        if (result.dates.isNotEmpty()) {
+            append("\n\nDates mentioned\n• ")
+            append(result.dates.joinToString("\n• "))
+        }
+        if (result.legalSections.isNotEmpty()) {
+            append("\n\nLegal references found in the document\n• ")
+            append(result.legalSections.joinToString("\n• "))
+        }
+        if (result.extractedFacts.isNotEmpty()) {
+            append("\n\nExtracted statements (not independently verified)")
+            result.extractedFacts.take(8).forEach { fact ->
+                append("\n• ")
+                append(fact.text)
+                if (fact.pageReference.isNotBlank()) append(" (" + fact.pageReference + ")")
+            }
+        }
+        if (result.legalAnswer.isNotBlank()) {
+            append("\n\nLegal information from retrieved sources\n")
+            append(result.legalAnswer)
+        } else if (result.legalError.isNotBlank()) {
+            append("\n\nLegal source search\n")
+            append(result.legalError)
+        }
+        if (result.verificationStatus.isNotBlank()) {
+            append("\n\nCitation support check: ")
+            append(result.verificationStatus)
+        }
+        if (result.verifiedCitations.isNotEmpty()) {
+            append("\nVerified citations\n• ")
+            append(result.verifiedCitations.joinToString("\n• "))
+        }
+        if (result.escalationRequired) {
+            append("\n\nHuman legal support recommended")
+            if (result.escalationReason.isNotBlank()) append("\n" + result.escalationReason)
+            if (result.recommendedAction.isNotBlank()) append("\n" + result.recommendedAction)
+        }
+        if (result.languageNotice.isNotBlank()) {
+            append("\n\n")
+            append(result.languageNotice)
+        }
+        if (result.warnings.isNotEmpty()) {
+            append("\n\nReview notes\n• ")
+            append(result.warnings.joinToString("\n• "))
+        }
+        if (result.disclaimer.isNotBlank()) {
+            append("\n\n")
+            append(result.disclaimer)
+        }
+        append("\n\nOCR and extracted statements do not independently verify the facts in a document.")
     }
 
     // =========================================================

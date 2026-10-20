@@ -835,6 +835,46 @@ class AskVidhiSetuActivity : AppCompatActivity() {
                             append(item)
                         }
                     }
+                    if (result.verificationStatus.isNotBlank()) {
+                        append("\n\n")
+                        append(
+                            localized(
+                                "Citation support check: ",
+                                "कानूनी उद्धरण जाँच: ",
+                                "చట్టపరమైన సూచనల తనిఖీ: "
+                            )
+                        )
+                        append(result.verificationStatus)
+                    }
+                    if (result.verificationReasons.isNotEmpty()) {
+                        append("\n")
+                        append(
+                            localized(
+                                "Review notes: ",
+                                "समीक्षा नोट: ",
+                                "సమీక్ష గమనికలు: "
+                            )
+                        )
+                        append(result.verificationReasons.joinToString("; "))
+                    }
+                    if (result.escalationRequired) {
+                        append("\n\n")
+                        append(
+                            localized(
+                                "Qualified legal help is recommended",
+                                "योग्य कानूनी सहायता लेने की सलाह दी जाती है",
+                                "అర్హత కలిగిన న్యాయ సహాయం తీసుకోవడం మంచిది"
+                            )
+                        )
+                        if (result.escalationReason.isNotBlank()) {
+                            append("\n")
+                            append(result.escalationReason)
+                        }
+                        if (result.recommendedAction.isNotBlank()) {
+                            append("\n")
+                            append(result.recommendedAction)
+                        }
+                    }
                     if (result.disclaimer.isNotBlank()) {
                         append("\n\n")
                         append(result.disclaimer)

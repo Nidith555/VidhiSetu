@@ -94,7 +94,7 @@
                 android:id="@+id/instructionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Take a photo or choose a document. VidhiSetu will help explain it in simple language."
+                android:text="Scan or select a PDF, PNG, or JPEG to extract key details and review related legal sources."
                 android:textColor="@color/vs_secondary_text"
                 android:textSize="14sp"
                 android:lineSpacingExtra="3dp"
@@ -134,7 +134,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Capture a document or select an image from your phone"
+                    android:text="Capture a page or select a PDF, PNG, or JPEG from your phone"
                     android:textColor="@color/vs_secondary_text"
                     android:textSize="12sp"
                     android:gravity="center"

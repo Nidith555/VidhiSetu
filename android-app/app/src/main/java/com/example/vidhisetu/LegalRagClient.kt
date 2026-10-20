@@ -27,7 +27,13 @@ data class LegalRagResult(
     val takeaways: List<String>,
     val disclaimer: String,
     val citations: List<String>,
-    val passages: List<LegalRagPassage>
+    val passages: List<LegalRagPassage>,
+    val verificationStatus: String,
+    val verificationReasons: List<String>,
+    val escalationRequired: Boolean,
+    val escalationPriority: String,
+    val escalationReason: String,
+    val recommendedAction: String
 )
 
 class LegalRagApiException(
@@ -113,10 +119,22 @@ class LegalRagClient {
                     answer = json.optString("answer", "").trim(),
                     answerLanguage = json.optString("answer_language", "en"),
                     languageNotice = json.optString("language_notice", "").trim(),
-                    takeaways = readStringArray(json.optJSONArray("takeaways")),
+                    takeaways = readStringArray(json.optJSONArray("takeaways") ?: json.optJSONArray("key_takeaways")),
                     disclaimer = json.optString("disclaimer", "").trim(),
                     citations = readStringArray(json.optJSONArray("citations")),
-                    passages = readPassages(json.optJSONArray("passages"))
+                    passages = readPassages(json.optJSONArray("passages") ?: json.optJSONArray("supporting_passages")),
+                    verificationStatus = json.optJSONObject("verification")?.optString("status", "").orEmpty(),
+                    verificationReasons = readStringArray(
+                        json.optJSONObject("verification")?.optJSONArray("reasons")
+                    ),
+                    escalationRequired = json.optJSONObject("escalation")
+                        ?.optBoolean("escalation_required", false) ?: false,
+                    escalationPriority = json.optJSONObject("escalation")
+                        ?.optString("priority", "").orEmpty(),
+                    escalationReason = json.optJSONObject("escalation")
+                        ?.optString("reason", "").orEmpty(),
+                    recommendedAction = json.optJSONObject("escalation")
+                        ?.optString("recommended_action", "").orEmpty()
                 ).also { result ->
                     if (result.answer.isBlank()) {
                         throw LegalRagApiException(

@@ -81,7 +81,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Choose a template and enter the basic information required to prepare a draft."
+                android:text="Prepare a review-only draft using required facts and legal sources retrieved by VidhiSetu."
                 android:textColor="@color/vs_secondary_text"
                 android:textSize="13sp"
                 android:lineSpacingExtra="3dp"
@@ -147,7 +147,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Address"
+                android:text="Respondent or authority"
                 android:textColor="@color/vs_primary_text"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -157,7 +157,7 @@
                 android:id="@+id/addressInput"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:hint="Enter your address"
+                android:hint="Enter the person, organisation, or authority"
                 android:textColor="@color/vs_primary_text"
                 android:textColorHint="@color/vs_secondary_text"
                 android:textSize="14sp"
@@ -175,7 +175,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Subject"
+                android:text="Incident place"
                 android:textColor="@color/vs_primary_text"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -185,12 +185,36 @@
                 android:id="@+id/subjectInput"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:hint="Enter document subject"
+                android:hint="Enter the location (required for complaints)"
                 android:textColor="@color/vs_primary_text"
                 android:textColorHint="@color/vs_secondary_text"
                 android:textSize="14sp"
                 android:singleLine="true"
                 android:inputType="text"
+                android:background="@drawable/search_background"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:layout_marginTop="7dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Incident date"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/incidentDateInput"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:hint="Enter the date (required for complaints)"
+                android:textColor="@color/vs_primary_text"
+                android:textColorHint="@color/vs_secondary_text"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:inputType="date"
                 android:background="@drawable/search_background"
                 android:paddingStart="14dp"
                 android:paddingEnd="14dp"
@@ -204,7 +228,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Details"
+                android:text="Facts in chronological order"
                 android:textColor="@color/vs_primary_text"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -214,7 +238,30 @@
                 android:id="@+id/detailsInput"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:hint="Describe the matter in detail"
+                android:hint="Describe only the facts you know"
+                android:textColor="@color/vs_primary_text"
+                android:textColorHint="@color/vs_secondary_text"
+                android:textSize="14sp"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:background="@drawable/search_background"
+                android:padding="14dp"
+                android:layout_marginTop="7dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Requested outcome"
+                android:textColor="@color/vs_primary_text"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/requestedReliefInput"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:hint="What outcome are you requesting?"
                 android:textColor="@color/vs_primary_text"
                 android:textColorHint="@color/vs_secondary_text"
                 android:textSize="14sp"
@@ -311,7 +358,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Drafts generated by VidhiSetu are templates for assistance and should be reviewed for the specific facts and legal requirements before formal use."
+                android:text="Drafts use only supplied facts and verified retrieved provisions. Confirm the details and get qualified legal review before filing or formal use."
                 android:textColor="@color/vs_secondary_text"
                 android:textSize="10sp"
                 android:gravity="center"

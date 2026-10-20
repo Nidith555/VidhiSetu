@@ -6,9 +6,11 @@ VidhiSetu is an Android application project intended to make legal information e
 
 ## Current project status
 
-The Android project is configured and the debug APK successfully built in GitHub Actions. The Ask VidhiSetu intake now has an English/Hindi/Telugu language selector connected to the backend request, speech recognition, and text-to-speech. The backend accepts those three language codes and provides a clearly marked, deterministic intake fallback if Ollama is unavailable.
+The Android project builds through GitHub Actions. The Ask VidhiSetu flow supports English, Hindi, and Telugu intake, uses the phone's speech recognition and text-to-speech, and sends completed case facts to the hosted Flask API. The app displays retrieved legal information, citation verification status, and lawyer-escalation guidance when the backend returns it.
 
-This does **not** mean every static label across every screen is translated, or that the team's full RAG/legal knowledge base and AI-agent orchestration are complete. Those still need implementation and integration.
+The **Scan & Explain** screen uploads PDF, PNG, or JPEG documents to the document-analysis endpoint. It presents OCR-extracted statements as unverified and shows legal-source results separately. The **Document Drafting** screen calls the legal-draft endpoint; it only enables copying or sharing when the backend returns a ready draft with verified citations.
+
+The Android app uses native device speech recognition and text-to-speech. The optional server-side audio endpoint requires a configured speech-to-text provider and is not needed for the current app flow. Every screen should be reviewed for language coverage; only the supported Ask flow is fully connected to the English/Hindi/Telugu language selection.
 
 ## Repository structure
 
@@ -31,18 +33,20 @@ VidhiSetu/
 
 ## Build and download
 
-The latest successful Android build workflow is available here:
+The latest Android build workflow is available here:
 
 [Open Android build workflow](https://github.com/Nidith555/VidhiSetu/actions)
 
-The `vidhisetu-debug-apk` artifact contains `app-debug.apk`. GitHub Actions artifacts expire after the configured retention period; the local APK from the verified run is available in this conversation if needed.
+The `vidhisetu-debug-apk` artifact contains `app-debug.apk`. GitHub Actions artifacts expire after the configured retention period.
 
 To build locally, open the **android-app** directory in Android Studio, install Android SDK Platform 35 if prompted, and allow Gradle sync to finish.
 
 ## Backend and AI availability
 
-The deployed API source is maintained in the private repository [Nidith555/vidhisetu-backend](https://github.com/Nidith555/vidhisetu-backend). A cloud-hosted Flask process cannot access Ollama running only on a developer's laptop. Configure an Ollama service reachable from the deployed backend to enable model-generated questions. Without it, the server uses a labelled deterministic guided questionnaire to collect facts; this is not an AI-generated response or legal advice.
+The deployed API source is maintained in the private repository [Nidith555/vidhisetu-backend](https://github.com/Nidith555/vidhisetu-backend). The Android app calls the Render service at `https://vidhisetu-backend.onrender.com`.
+
+The hosted Flask service needs a reachable `VIDHISETU_RAG_URL` and configured model/provider settings for legal retrieval, verification, translation, and draft generation. Scanned documents need a server OCR provider or Tesseract. The optional server-side voice endpoint needs an STT provider. Configure these on Render; never place credentials in Android or source control. If an upstream service is unavailable, the app shows the returned service status rather than inventing legal information.
 
 ## Security and legal safety
 
-Never commit API keys, passwords, tokens, Firebase service-account files, keystores, `google-services.json`, or `local.properties`. Keep real personal legal records out of public commits. Verify statutes and citations against official sources and consult a qualified lawyer for case-specific advice.
+Never commit API keys, passwords, tokens, Firebase service-account files, keystores, `google-services.json`, or `local.properties`. Keep real personal legal records out of public commits. Extracted document text is not independently verified. Review every draft and verify citations against official sources; consult a qualified lawyer for case-specific advice.
