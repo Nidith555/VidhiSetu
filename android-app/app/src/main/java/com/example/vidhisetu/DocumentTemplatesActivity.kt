@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import com.example.vidhisetu.databinding.ActivityDocumentTemplatesBinding
 
 class DocumentTemplatesActivity : AppCompatActivity() {
@@ -12,14 +14,9 @@ class DocumentTemplatesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDocumentTemplatesBinding
 
     private val documentTypes = arrayOf(
-        "Police Complaint",
-        "Consumer Complaint",
-        "RTI Application",
+        "Complaint",
         "Legal Notice",
-        "Rental Agreement Request",
-        "Leave & Permission Letter",
-        "Affidavit",
-        "General Application"
+        "Representation"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,384 +60,131 @@ class DocumentTemplatesActivity : AppCompatActivity() {
     }
 
     private fun generateDocument() {
+        val complainant = binding.nameInput.text.toString().trim()
+        val respondent = binding.addressInput.text.toString().trim()
+        val incidentPlace = binding.subjectInput.text.toString().trim()
+        val factsText = binding.detailsInput.text.toString().trim()
+        val incidentDate = binding.incidentDateInput.text.toString().trim()
+        val requestedRelief = binding.requestedReliefInput.text.toString().trim()
+        val type = when (binding.documentTypeSpinner.selectedItemPosition) {
+            1 -> "legal_notice"
+            2 -> "representation"
+            else -> "complaint"
+        }
 
-        val documentType =
-            binding.documentTypeSpinner.selectedItem.toString()
-
-        val name =
-            binding.nameInput.text.toString().trim()
-
-        val address =
-            binding.addressInput.text.toString().trim()
-
-        val subject =
-            binding.subjectInput.text.toString().trim()
-
-        val details =
-            binding.detailsInput.text.toString().trim()
-
-        if (name.isBlank()) {
+        if (complainant.isBlank()) {
             binding.nameInput.error = "Enter your name"
             binding.nameInput.requestFocus()
             return
         }
-
-        if (address.isBlank()) {
-            binding.addressInput.error = "Enter your address"
+        if (respondent.isBlank()) {
+            binding.addressInput.error = "Enter the respondent or authority"
             binding.addressInput.requestFocus()
             return
         }
-
-        if (subject.isBlank()) {
-            binding.subjectInput.error = "Enter the subject"
+        if (factsText.isBlank()) {
+            binding.detailsInput.error = "Describe the facts"
+            binding.detailsInput.requestFocus()
+            return
+        }
+        if (requestedRelief.isBlank()) {
+            binding.requestedReliefInput.error = "Describe the outcome you are requesting"
+            binding.requestedReliefInput.requestFocus()
+            return
+        }
+        if (type == "complaint" && incidentDate.isBlank()) {
+            binding.incidentDateInput.error = "Enter the incident date for a complaint"
+            binding.incidentDateInput.requestFocus()
+            return
+        }
+        if (type == "complaint" && incidentPlace.isBlank()) {
+            binding.subjectInput.error = "Enter the incident place for a complaint"
             binding.subjectInput.requestFocus()
             return
         }
 
-        if (details.isBlank()) {
-            binding.detailsInput.error = "Enter the details"
-            binding.detailsInput.requestFocus()
-            return
-        }
+        binding.generateButton.isEnabled = false
+        binding.previewCard.visibility = android.view.View.VISIBLE
+        binding.previewTitle.text = "Preparing a review-only draft"
+        binding.previewText.text = "Checking the required facts and retrieved legal sources..."
+        binding.copyButton.visibility = android.view.View.GONE
+        binding.shareButton.visibility = android.view.View.GONE
 
-        val draft = createDraft(
-            documentType = documentType,
-            name = name,
-            address = address,
-            subject = subject,
-            details = details
-        )
+        lifecycleScope.launch {
+            try {
+                val role = intent.getStringExtra("role")
+                    ?.lowercase(java.util.Locale.ROOT)
+                    ?.takeIf { it in setOf("civilian", "student", "lawyer") }
+                    ?: "civilian"
+                val result = LegalDraftClient().createDraft(
+                    documentType = type,
+                    complainant = complainant,
+                    respondent = respondent,
+                    incidentDate = incidentDate,
+                    incidentPlace = incidentPlace,
+                    facts = listOf(factsText),
+                    requestedRelief = requestedRelief,
+                    language = AppLanguage.getCode(this@DocumentTemplatesActivity),
+                    role = role
+                )
 
-        binding.previewTitle.text =
-            documentType
+                binding.previewTitle.text = result.title.ifBlank {
+                    when (result.status) {
+                        "needs_information" -> "More information needed"
+                        "rejected" -> "Draft withheld"
+                        else -> "Draft response"
+                    }
+                }
 
-        binding.previewText.text =
-            draft
-
-        binding.previewCard.visibility =
-            android.view.View.VISIBLE
-
-        binding.copyButton.visibility =
-            android.view.View.VISIBLE
-
-        binding.shareButton.visibility =
-            android.view.View.VISIBLE
-
-        Toast.makeText(
-            this,
-            "Draft generated successfully",
-            Toast.LENGTH_SHORT
-        ).show()
-    }
-
-    private fun createDraft(
-        documentType: String,
-        name: String,
-        address: String,
-        subject: String,
-        details: String
-    ): String {
-
-        return when (documentType) {
-
-            "Police Complaint" -> {
-
-                """
-                TO
-                The Station House Officer
-                [Police Station Name]
-                
-                Subject: $subject
-                
-                Respected Sir/Madam,
-                
-                I, $name, residing at:
-                
-                $address
-                
-                would like to submit this complaint regarding the following matter:
-                
-                $details
-                
-                I request the concerned authority to kindly examine the matter
-                and take appropriate action according to law.
-                
-                I am willing to provide any additional information or documents
-                required in connection with this complaint.
-                
-                Thank you.
-                
-                Yours faithfully,
-                
-                $name
-                
-                Address:
-                $address
-                
-                Date: __________
-                Place: __________
-                
-                Signature: __________
-                """.trimIndent()
-            }
-
-            "Consumer Complaint" -> {
-
-                """
-                TO
-                The Appropriate Consumer Authority
-                
-                Subject: $subject
-                
-                Respected Sir/Madam,
-                
-                I, $name, residing at:
-                
-                $address
-                
-                am submitting this complaint regarding the following consumer
-                matter:
-                
-                $details
-                
-                I request that the matter be examined and appropriate relief
-                be provided in accordance with the applicable law.
-                
-                I am prepared to provide relevant invoices, receipts,
-                communications and other supporting documents.
-                
-                Thank you.
-                
-                Yours faithfully,
-                
-                $name
-                
-                Address:
-                $address
-                
-                Date: __________
-                Place: __________
-                
-                Signature: __________
-                """.trimIndent()
-            }
-
-            "RTI Application" -> {
-
-                """
-                TO
-                The Public Information Officer
-                [Public Authority]
-                
-                Subject: $subject
-                
-                Respected Sir/Madam,
-                
-                I, $name, residing at:
-                
-                $address
-                
-                request the following information under the Right to
-                Information framework:
-                
-                $details
-                
-                Kindly provide the requested information in the prescribed
-                manner.
-                
-                Applicant Details:
-                
-                Name: $name
-                Address: $address
-                
-                Date: __________
-                Place: __________
-                
-                Signature: __________
-                """.trimIndent()
-            }
-
-            "Legal Notice" -> {
-
-                """
-                LEGAL NOTICE
-                
-                To:
-                [Recipient Name]
-                [Recipient Address]
-                
-                From:
-                $name
-                $address
-                
-                Subject: $subject
-                
-                Sir/Madam,
-                
-                Under instructions from the concerned party, this notice is
-                issued regarding the following matter:
-                
-                $details
-                
-                You are requested to take appropriate steps concerning the
-                above matter within the applicable period.
-                
-                This document is a preliminary draft and should be reviewed
-                by a qualified legal professional before formal use.
-                
-                Sincerely,
-                
-                $name
-                
-                Address:
-                $address
-                
-                Date: __________
-                """.trimIndent()
-            }
-
-            "Rental Agreement Request" -> {
-
-                """
-                RENTAL AGREEMENT REQUEST
-                
-                From:
-                $name
-                $address
-                
-                Subject: $subject
-                
-                Dear Sir/Madam,
-                
-                I am writing regarding the proposed rental arrangement.
-                
-                Details:
-                
-                $details
-                
-                I request that the terms and conditions of the proposed
-                tenancy be discussed and recorded in an appropriate written
-                agreement.
-                
-                Please provide confirmation of the agreed terms.
-                
-                Regards,
-                
-                $name
-                
-                Address:
-                $address
-                
-                Date: __________
-                
-                Signature: __________
-                """.trimIndent()
-            }
-
-            "Leave & Permission Letter" -> {
-
-                """
-                TO
-                [Authority / Manager / Head]
-                
-                Subject: $subject
-                
-                Respected Sir/Madam,
-                
-                I, $name, request leave / permission for the following reason:
-                
-                $details
-                
-                My address/contact details are:
-                
-                $address
-                
-                I kindly request you to consider my request and grant the
-                necessary permission.
-                
-                Thank you.
-                
-                Yours faithfully,
-                
-                $name
-                
-                Date: __________
-                
-                Signature: __________
-                """.trimIndent()
-            }
-
-            "Affidavit" -> {
-
-                """
-                AFFIDAVIT
-                
-                I, $name, residing at:
-                
-                $address
-                
-                do hereby state and affirm the following:
-                
-                $details
-                
-                I declare that the statements made above are based on the
-                information available to me and are made for the purpose
-                stated below:
-                
-                Subject:
-                $subject
-                
-                This draft should be reviewed and executed in the manner
-                required for the particular purpose and jurisdiction.
-                
-                DEPONENT
-                
-                Name: $name
-                
-                Date: __________
-                Place: __________
-                
-                Signature: __________
-                """.trimIndent()
-            }
-
-            else -> {
-
-                """
-                GENERAL APPLICATION
-                
-                To:
-                [Concerned Authority]
-                
-                From:
-                $name
-                $address
-                
-                Subject: $subject
-                
-                Respected Sir/Madam,
-                
-                I am writing this application regarding the following matter:
-                
-                $details
-                
-                I kindly request the concerned authority to consider my
-                application and take appropriate action.
-                
-                Thank you.
-                
-                Yours faithfully,
-                
-                $name
-                
-                Address:
-                $address
-                
-                Date: __________
-                Place: __________
-                
-                Signature: __________
-                """.trimIndent()
+                val content = buildString {
+                    when (result.status) {
+                        "ready" -> {
+                            append(result.draft)
+                            if (result.verifiedCitations.isNotEmpty()) {
+                                append("\n\nVerified citations\n• ")
+                                append(result.verifiedCitations.joinToString("\n• "))
+                            }
+                        }
+                        "needs_information" -> {
+                            append("Please provide the following information before a draft can be prepared:")
+                            (result.missingInformation + result.questions).distinct().forEach {
+                                append("\n• ")
+                                append(it)
+                            }
+                        }
+                        else -> {
+                            append(result.message.ifBlank {
+                                "The backend withheld the draft because its legal support could not be verified."
+                            })
+                        }
+                    }
+                    if (result.warning.isNotBlank()) {
+                        append("\n\n")
+                        append(result.warning)
+                    }
+                }
+                binding.previewText.text = content
+                val draftReady = result.status == "ready" && result.draft.isNotBlank()
+                binding.copyButton.visibility = if (draftReady) android.view.View.VISIBLE else android.view.View.GONE
+                binding.shareButton.visibility = if (draftReady) android.view.View.VISIBLE else android.view.View.GONE
+                Toast.makeText(
+                    this@DocumentTemplatesActivity,
+                    if (draftReady) "Review-only draft is ready" else "Draft needs attention",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } catch (exception: Exception) {
+                binding.previewTitle.text = "Draft service unavailable"
+                binding.previewText.text = exception.message
+                    ?: "The legal drafting service could not be reached. Please try again."
+                binding.copyButton.visibility = android.view.View.GONE
+                binding.shareButton.visibility = android.view.View.GONE
+                Toast.makeText(
+                    this@DocumentTemplatesActivity,
+                    binding.previewText.text,
+                    Toast.LENGTH_LONG
+                ).show()
+            } finally {
+                binding.generateButton.isEnabled = true
             }
         }
     }
